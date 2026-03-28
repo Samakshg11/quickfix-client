@@ -88,7 +88,6 @@ export default function LandingPage() {
         e.preventDefault();
         if (!email) return;
         setIsSubmitting(true);
-        // Simulate real submission
         await new Promise(r => setTimeout(r, 1500));
         setIsSubmitting(false);
         setSubmitted(true);
@@ -166,7 +165,7 @@ export default function LandingPage() {
                 </motion.div>
             </section>
 
-            {/* ── THE PROTOCOL ── */}
+            {/* ── THE PROTOCOL (FIXED NUMBERS) ── */}
             <section id="protocol" className="py-44 px-10 relative bg-surface-low/10">
                 <div className="max-w-7xl mx-auto">
                     <div className="text-center mb-24">
@@ -176,10 +175,17 @@ export default function LandingPage() {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
                         {PROTOCOLS.map((p, i) => (
                             <motion.div key={i} whileHover={{ y: -10 }} className="p-12 bg-surface-high/20 rounded-[4.56rem] border border-white/5 relative overflow-hidden group glass">
-                                <span className="text-8xl font-display font-black text-white/5 absolute -top-4 -left-4 group-hover:text-primary/10 transition-colors">{p.step}</span>
-                                <div className="mb-10 w-16 h-16 rounded-[1.5rem] bg-primary/10 flex items-center justify-center text-primary shadow-xl"><CheckCircle2 size={32} /></div>
-                                <h4 className="text-3xl font-bold text-white mb-6 italic">{p.title}</h4>
-                                <p className="text-slate-400 leading-relaxed font-medium text-lg">{p.desc}</p>
+                                {/* Fixed Blueprint Numbers: Repositioned to sit safely inside */}
+                                <motion.span
+                                    whileHover={{ scale: 1.1 }}
+                                    className="text-7xl font-display font-black text-white/[0.03] absolute top-8 right-12 group-hover:text-primary/[0.06] transition-all pointer-events-none"
+                                >
+                                    {p.step}
+                                </motion.span>
+
+                                <div className="mb-10 w-16 h-16 rounded-[1.5rem] bg-primary/10 flex items-center justify-center text-primary shadow-xl relative z-10"><CheckCircle2 size={32} /></div>
+                                <h4 className="text-3xl font-bold text-white mb-6 italic relative z-10">{p.title}</h4>
+                                <p className="text-slate-400 leading-relaxed font-medium text-lg relative z-10">{p.desc}</p>
                             </motion.div>
                         ))}
                     </div>
@@ -198,11 +204,11 @@ export default function LandingPage() {
                         </motion.div>
                         <div className="space-y-6 relative">
                             {FEATURE_CARDS.map((card, i) => (
-                                <motion.div key={i} whileHover={{ x: 10, backgroundColor: 'rgba(143,245,255,0.02)' }} className="p-10 bg-surface-high/10 rounded-[4rem] border border-white/5 flex items-center gap-10 group transition-all glass">
+                                <motion.div key={i} whileHover={{ x: 10, backgroundColor: 'rgba(143,245,255,0.02)' }} className="p-10 bg-surface-high/10 rounded-[4rem] border border-white/5 flex items-center gap-10 group transition-all glass text-left">
                                     <div className="w-18 h-18 rounded-[2rem] bg-background border border-white/5 flex items-center justify-center text-primary/60 shrink-0 group-hover:text-primary group-hover:scale-110 transition-all"><card.icon size={32} /></div>
                                     <div>
                                         <h4 className="text-2xl font-bold text-white tracking-tight">{card.title}</h4>
-                                        <p className="text-[11px] font-bold text-slate-500 uppercase tracking-[0.3em] mt-2 italic group-hover:text-slate-400 transition-colors">{card.desc}</p>
+                                        <p className="text-[11px] font-bold text-slate-500 uppercase tracking-[0.3em] mt-2 italic group-hover:text-slate-400 transition-colors uppercase leading-tight">{card.desc}</p>
                                     </div>
                                 </motion.div>
                             ))}
@@ -212,17 +218,15 @@ export default function LandingPage() {
                         <motion.div animate={{ rotate: 360 }} transition={{ duration: 60, repeat: Infinity, ease: 'linear' }} className="absolute inset-[-100px] border border-primary/5 rounded-full border-dashed p-20 pointer-events-none" />
                         <div className="relative aspect-square rounded-[10rem] bg-surface-low/40 border border-white/5 p-1 flex items-center justify-center shadow-3xl glass group-hover:border-primary/20 transition-all overflow-hidden">
                             <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5" />
-
                             <div className="absolute inset-12 bg-black/60 rounded-[8rem] border border-white/10 backdrop-blur-3xl p-16 flex flex-col justify-between overflow-hidden shadow-2xl">
-                                <div className="flex justify-between items-center mb-10">
+                                <div className="flex justify-between items-center mb-10 text-left">
                                     <div className="flex items-center gap-4">
                                         <motion.div animate={{ opacity: [0.4, 1, 0.4] }} transition={{ duration: 1, repeat: Infinity }} className="w-3 h-3 bg-primary rounded-full neon-glow-primary" />
                                         <span className="text-[10px] font-black text-primary uppercase tracking-[0.4em]">Node_Sync: Active</span>
                                     </div>
                                     <Terminal size={20} className="text-primary/40" />
                                 </div>
-
-                                <div className="flex-1 flex flex-col justify-center gap-12">
+                                <div className="flex-1 flex flex-col justify-center gap-12 text-left">
                                     <div className="relative h-44 w-full flex items-end gap-2 px-4">
                                         {[40, 65, 30, 85, 45, 95, 60, 40, 75, 55, 35, 80].map((h, i) => (
                                             <motion.div key={i} initial={{ height: 0 }} whileInView={{ height: `${h}%` }} transition={{ duration: 1.5, delay: i * 0.05 + 0.5 }} className="flex-1 bg-primary/20 rounded-t-lg border-x border-primary/5 relative group">
@@ -231,7 +235,6 @@ export default function LandingPage() {
                                         ))}
                                         <div className="absolute inset-x-0 h-px bg-primary/20 bottom-0 shadow-[0_0_20px_rgba(143,245,255,0.4)]" />
                                     </div>
-
                                     <div className="space-y-6">
                                         <div className="flex justify-between items-end">
                                             <div className="text-[11px] font-black text-slate-500 uppercase tracking-widest">Network_Stability</div>
@@ -242,8 +245,7 @@ export default function LandingPage() {
                                         </div>
                                     </div>
                                 </div>
-
-                                <div className="mt-12 grid grid-cols-2 gap-4">
+                                <div className="mt-12 grid grid-cols-2 gap-4 text-left">
                                     <div className="bg-white/5 rounded-3xl p-6 border border-white/5 flex flex-col justify-center">
                                         <span className="text-[9px] font-bold text-slate-600 uppercase tracking-widest">Latency</span>
                                         <span className="text-lg font-bold text-primary">05ms</span>
@@ -253,8 +255,8 @@ export default function LandingPage() {
                                         <span className="text-lg font-bold text-primary">1.2K</span>
                                     </div>
                                 </div>
-                                <div className="absolute top-0 right-0 p-8 opacity-20 pointer-events-none"><Radar size={120} className="text-primary animate-pulse" /></div>
                             </div>
+                            <div className="absolute top-0 right-0 p-8 opacity-20 pointer-events-none"><Radar size={120} className="text-primary animate-pulse" /></div>
                         </div>
                     </div>
                 </div>
@@ -263,12 +265,12 @@ export default function LandingPage() {
             {/* ── TESTIMONIALS ── */}
             <section className="py-44 px-10 relative bg-background">
                 <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-24 lg:items-center">
-                    <div className="lg:w-1/3"><h2 className="text-6xl font-display font-bold text-white tracking-tighter italic leading-tight">Industry<br /><span className="text-primary">Trusted.</span></h2><p className="text-xl text-slate-500 mt-10 font-medium leading-relaxed">Leading automotive fleet managers and independent master technicians rely on our synchronized service infrastructure.</p></div>
+                    <div className="lg:w-1/3 text-left"><h2 className="text-6xl font-display font-bold text-white tracking-tighter italic leading-tight">Industry<br /><span className="text-primary">Trusted.</span></h2><p className="text-xl text-slate-500 mt-10 font-medium leading-relaxed">Leading automotive fleet managers and independent master technicians rely on our synchronized service infrastructure.</p></div>
                     <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-10">
                         {TESTIMONIALS.map((t, i) => (
-                            <motion.div key={i} whileHover={{ y: -10 }} className="p-14 bg-white/5 rounded-[5rem] border border-white/5 relative glass flex flex-col justify-between group overflow-hidden">
+                            <motion.div key={i} whileHover={{ y: -10 }} className="p-14 bg-white/5 rounded-[5rem] border border-white/5 relative glass flex flex-col justify-between group overflow-hidden text-left">
                                 <div className="absolute top-0 right-0 p-10 opacity-10"><MessageSquare size={40} className="text-primary" /></div>
-                                <p className="text-2xl text-white font-medium italic mb-16">"{t.quote}"</p>
+                                <p className="text-2xl text-white font-medium italic mb-16Leading-relaxed">"{t.quote}"</p>
                                 <div className="flex items-center gap-6">
                                     <div className="w-16 h-16 rounded-3xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary shadow-xl"><Users size={24} /></div>
                                     <div className="text-[11px] font-black uppercase tracking-[0.3em]"><div>{t.name}</div><div className="text-primary/60 mt-1.5">{t.role}</div></div>
@@ -282,12 +284,12 @@ export default function LandingPage() {
             {/* ── FAQ ── */}
             <section id="faq" className="py-44 px-10 relative bg-surface-low/20">
                 <div className="max-w-4xl mx-auto">
-                    <div className="text-center mb-32"><h2 className="text-6xl font-display font-bold text-white tracking-tighter italic uppercase">Synchronized Knowledge.</h2></div>
+                    <div className="text-center mb-32"><h2 className="text-6xl font-display font-bold text-white tracking-tighter italic uppercase leading-tight">Synchronized<br />Knowledge.</h2></div>
                     <div className="space-y-6">
                         {FAQ.map((f, i) => (
-                            <div key={i} className="bg-surface-high/20 rounded-[3.5rem] border border-white/5 overflow-hidden glass transition-all">
+                            <div key={i} className="bg-surface-high/20 rounded-[3.5rem] border border-white/5 overflow-hidden glass transition-all text-left">
                                 <button onClick={() => setOpenFaq(i)} className="w-full p-12 flex justify-between items-center text-left group">
-                                    <span className="text-xl font-bold text-white italic group-hover:text-primary transition-colors">{f.q}</span>
+                                    <span className="text-xl font-bold text-white italic group-hover:text-primary transition-colors leading-tight">{f.q}</span>
                                     <div className={`w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-slate-500 transition-all ${openFaq === i ? 'rotate-180 text-primary bg-primary/10' : ''}`}><ChevronDown size={20} /></div>
                                 </button>
                                 <AnimatePresence>{openFaq === i && (
@@ -299,12 +301,11 @@ export default function LandingPage() {
                 </div>
             </section>
 
-            {/* ── ENGAGEMENT (FIXED SIZE & REAL WORK) ── */}
+            {/* ── ENGAGEMENT ── */}
             <section className="py-24 px-10 relative overflow-hidden">
                 <div className="max-w-5xl mx-auto p-16 bg-primary rounded-[4rem] relative overflow-hidden flex flex-col items-center text-center shadow-3xl">
                     <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-black/30" />
                     <div className="absolute inset-0 carbon-overlay opacity-[0.05]" />
-
                     <AnimatePresence mode="wait">
                         {!submitted ? (
                             <motion.div key="form" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.9 }} className="relative z-10 w-full flex flex-col items-center">
@@ -312,12 +313,7 @@ export default function LandingPage() {
                                 <h2 className="text-5xl font-display font-black text-background mb-4 tracking-tighter uppercase italic">Access the Network.</h2>
                                 <p className="text-background/80 text-lg font-medium max-w-lg mb-12">Join the next generation of industrial service infrastructure.</p>
                                 <form onSubmit={handleSubscribe} className="flex w-full max-w-lg gap-4 bg-white/30 p-2.5 rounded-3xl backdrop-blur-xl border border-white/20 shadow-2xl">
-                                    <input
-                                        type="email" required
-                                        value={email} onChange={(e) => setEmail(e.target.value)}
-                                        placeholder="Enter Registration Email..."
-                                        className="flex-1 bg-transparent border-none px-6 outline-none text-background font-bold text-sm placeholder:text-background/50"
-                                    />
+                                    <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter Registration Email..." className="flex-1 bg-transparent border-none px-6 outline-none text-background font-bold text-sm placeholder:text-background/50" />
                                     <Button type="submit" disabled={isSubmitting} className="rounded-2xl h-14 px-10 bg-background text-white font-black text-[10px] uppercase tracking-widest hover:scale-105 active:scale-95 transition-all flex items-center gap-2">
                                         {isSubmitting ? <Loader2 className="animate-spin" size={16} /> : "Submit_Link"}
                                     </Button>
