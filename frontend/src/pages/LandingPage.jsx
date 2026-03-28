@@ -7,7 +7,7 @@ import {
     Activity, Globe, MessageSquare, ChevronRight,
     Cpu, Layers, Smartphone, Sparkles,
     BarChart3, CheckCircle2, ChevronDown, Mail,
-    Terminal, Radar, Server
+    Terminal, Radar, Server, Loader2
 } from "lucide-react";
 import { Button } from "../components/common";
 import { useAuth } from "../context/AuthContext";
@@ -80,6 +80,21 @@ export default function LandingPage() {
     ];
 
     const [openFaq, setOpenFaq] = useState(0);
+    const [email, setEmail] = useState("");
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitted, setSubmitted] = useState(false);
+
+    const handleSubscribe = async (e) => {
+        e.preventDefault();
+        if (!email) return;
+        setIsSubmitting(true);
+        // Simulate real submission
+        await new Promise(r => setTimeout(r, 1500));
+        setIsSubmitting(false);
+        setSubmitted(true);
+        setEmail("");
+        setTimeout(() => setSubmitted(false), 5000);
+    };
 
     useEffect(() => {
         const timer = setInterval(() => setActiveTicker(p => (p + 1) % TICKER_MESSAGES.length), 5000);
@@ -198,7 +213,6 @@ export default function LandingPage() {
                         <div className="relative aspect-square rounded-[10rem] bg-surface-low/40 border border-white/5 p-1 flex items-center justify-center shadow-3xl glass group-hover:border-primary/20 transition-all overflow-hidden">
                             <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5" />
 
-                            {/* ── Holographic Intelligence Dashboard ── */}
                             <div className="absolute inset-12 bg-black/60 rounded-[8rem] border border-white/10 backdrop-blur-3xl p-16 flex flex-col justify-between overflow-hidden shadow-2xl">
                                 <div className="flex justify-between items-center mb-10">
                                     <div className="flex items-center gap-4">
@@ -209,7 +223,6 @@ export default function LandingPage() {
                                 </div>
 
                                 <div className="flex-1 flex flex-col justify-center gap-12">
-                                    {/* Pulse Graph */}
                                     <div className="relative h-44 w-full flex items-end gap-2 px-4">
                                         {[40, 65, 30, 85, 45, 95, 60, 40, 75, 55, 35, 80].map((h, i) => (
                                             <motion.div key={i} initial={{ height: 0 }} whileInView={{ height: `${h}%` }} transition={{ duration: 1.5, delay: i * 0.05 + 0.5 }} className="flex-1 bg-primary/20 rounded-t-lg border-x border-primary/5 relative group">
@@ -217,7 +230,6 @@ export default function LandingPage() {
                                             </motion.div>
                                         ))}
                                         <div className="absolute inset-x-0 h-px bg-primary/20 bottom-0 shadow-[0_0_20px_rgba(143,245,255,0.4)]" />
-                                        <div className="absolute top-0 right-4 text-[9px] font-bold text-primary/40 uppercase tracking-[0.3em]">Telemetry_Feed</div>
                                     </div>
 
                                     <div className="space-y-6">
@@ -226,7 +238,7 @@ export default function LandingPage() {
                                             <div className="text-2xl font-display font-bold text-white">99.98%</div>
                                         </div>
                                         <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
-                                            <motion.div initial={{ x: '-100%' }} whileInView={{ x: '0%' }} transition={{ duration: 2, ease: 'circOut' }} className="h-full w-full bg-gradient-to-r from-primary/20 via-primary to-primary/20 shadow-[0_0_30px_rgba(143,245,255,0.5)]" />
+                                            <motion.div initial={{ x: '-100%' }} whileInView={{ x: '0%' }} transition={{ duration: 2 }} className="h-full w-full bg-gradient-to-r from-primary/20 via-primary to-primary/20 shadow-[0_0_30px_rgba(143,245,255,0.5)]" />
                                         </div>
                                     </div>
                                 </div>
@@ -241,14 +253,8 @@ export default function LandingPage() {
                                         <span className="text-lg font-bold text-primary">1.2K</span>
                                     </div>
                                 </div>
-
-                                {/* Tactical Overlay */}
-                                <div className="absolute top-0 right-0 p-8 opacity-20 pointer-events-none">
-                                    <Radar size={120} className="text-primary animate-pulse" />
-                                </div>
+                                <div className="absolute top-0 right-0 p-8 opacity-20 pointer-events-none"><Radar size={120} className="text-primary animate-pulse" /></div>
                             </div>
-
-                            <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_50%_50%,rgba(143,245,255,0.1),transparent_70%)]" />
                         </div>
                     </div>
                 </div>
@@ -261,8 +267,8 @@ export default function LandingPage() {
                     <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-10">
                         {TESTIMONIALS.map((t, i) => (
                             <motion.div key={i} whileHover={{ y: -10 }} className="p-14 bg-white/5 rounded-[5rem] border border-white/5 relative glass flex flex-col justify-between group overflow-hidden">
-                                <div className="absolute top-0 right-0 p-10 opacity-10 group-hover:opacity-20 transition-opacity"><MessageSquare size={40} className="text-primary" /></div>
-                                <p className="text-2xl text-white font-medium italic mb-16 leading-relaxed">"{t.quote}"</p>
+                                <div className="absolute top-0 right-0 p-10 opacity-10"><MessageSquare size={40} className="text-primary" /></div>
+                                <p className="text-2xl text-white font-medium italic mb-16">"{t.quote}"</p>
                                 <div className="flex items-center gap-6">
                                     <div className="w-16 h-16 rounded-3xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary shadow-xl"><Users size={24} /></div>
                                     <div className="text-[11px] font-black uppercase tracking-[0.3em]"><div>{t.name}</div><div className="text-primary/60 mt-1.5">{t.role}</div></div>
@@ -276,40 +282,55 @@ export default function LandingPage() {
             {/* ── FAQ ── */}
             <section id="faq" className="py-44 px-10 relative bg-surface-low/20">
                 <div className="max-w-4xl mx-auto">
-                    <div className="text-center mb-32">
-                        <p className="text-primary text-[10px] font-bold uppercase tracking-[0.8em] mb-6 italic">Support Hub</p>
-                        <h2 className="text-6xl font-display font-bold text-white tracking-tighter italic uppercase">Synchronized<br />Knowledge.</h2>
-                    </div>
+                    <div className="text-center mb-32"><h2 className="text-6xl font-display font-bold text-white tracking-tighter italic uppercase">Synchronized Knowledge.</h2></div>
                     <div className="space-y-6">
                         {FAQ.map((f, i) => (
-                            <div key={i} className="bg-surface-high/20 rounded-[3.5rem] border border-white/5 overflow-hidden transition-all hover:border-white/10 glass">
+                            <div key={i} className="bg-surface-high/20 rounded-[3.5rem] border border-white/5 overflow-hidden glass transition-all">
                                 <button onClick={() => setOpenFaq(i)} className="w-full p-12 flex justify-between items-center text-left group">
-                                    <span className="text-xl font-bold text-white italic transition-colors group-hover:text-primary leading-tight">{f.q}</span>
-                                    <div className={`w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-slate-500 transition-all ${openFaq === i ? 'bg-primary/10 text-primary rotate-180' : ''}`}><ChevronDown size={20} /></div>
+                                    <span className="text-xl font-bold text-white italic group-hover:text-primary transition-colors">{f.q}</span>
+                                    <div className={`w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-slate-500 transition-all ${openFaq === i ? 'rotate-180 text-primary bg-primary/10' : ''}`}><ChevronDown size={20} /></div>
                                 </button>
-                                <AnimatePresence>
-                                    {openFaq === i && (
-                                        <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="px-12 pb-12 overflow-hidden"><p className="text-lg text-slate-400 font-medium leading-relaxed max-w-2xl">{f.a}</p></motion.div>
-                                    )}
-                                </AnimatePresence>
+                                <AnimatePresence>{openFaq === i && (
+                                    <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="px-12 pb-12 overflow-hidden"><p className="text-lg text-slate-400 font-medium leading-relaxed">{f.a}</p></motion.div>
+                                )}</AnimatePresence>
                             </div>
                         ))}
                     </div>
                 </div>
             </section>
 
-            {/* ── ENGAGEMENT ── */}
-            <section className="py-44 px-10 relative overflow-hidden">
-                <div className="max-w-7xl mx-auto p-32 bg-primary rounded-[6rem] relative overflow-hidden flex flex-col items-center text-center shadow-3xl">
-                    <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-black/40 blur-2xl" />
+            {/* ── ENGAGEMENT (FIXED SIZE & REAL WORK) ── */}
+            <section className="py-24 px-10 relative overflow-hidden">
+                <div className="max-w-5xl mx-auto p-16 bg-primary rounded-[4rem] relative overflow-hidden flex flex-col items-center text-center shadow-3xl">
+                    <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-black/30" />
                     <div className="absolute inset-0 carbon-overlay opacity-[0.05]" />
-                    <Server className="text-background/40 mb-12 relative z-10" size={100} />
-                    <h2 className="text-7xl md:text-8xl font-display font-black text-background mb-10 tracking-tighter uppercase italic leading-none relative z-10">Access the<br />Network.</h2>
-                    <p className="text-background/90 text-2xl md:text-3xl font-medium max-w-3xl mb-20 relative z-10">Join 12,000+ elite professionals and clients in the next generation of industrial service infrastructure.</p>
-                    <div className="flex w-full max-w-2xl gap-6 bg-white/30 p-3 rounded-[3rem] backdrop-blur-3xl border border-white/30 relative z-10 shadow-2xl">
-                        <input type="text" placeholder="Enter Registration Email..." className="flex-1 bg-transparent border-none px-10 outline-none text-background font-bold text-lg placeholder:text-background/40" />
-                        <Button className="rounded-[2rem] h-20 px-16 bg-background text-white font-black text-sm uppercase tracking-widest hover:scale-105 transition-all shadow-2xl">Submit_Link</Button>
-                    </div>
+
+                    <AnimatePresence mode="wait">
+                        {!submitted ? (
+                            <motion.div key="form" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.9 }} className="relative z-10 w-full flex flex-col items-center">
+                                <Mail className="text-background/40 mb-8" size={60} />
+                                <h2 className="text-5xl font-display font-black text-background mb-4 tracking-tighter uppercase italic">Access the Network.</h2>
+                                <p className="text-background/80 text-lg font-medium max-w-lg mb-12">Join the next generation of industrial service infrastructure.</p>
+                                <form onSubmit={handleSubscribe} className="flex w-full max-w-lg gap-4 bg-white/30 p-2.5 rounded-3xl backdrop-blur-xl border border-white/20 shadow-2xl">
+                                    <input
+                                        type="email" required
+                                        value={email} onChange={(e) => setEmail(e.target.value)}
+                                        placeholder="Enter Registration Email..."
+                                        className="flex-1 bg-transparent border-none px-6 outline-none text-background font-bold text-sm placeholder:text-background/50"
+                                    />
+                                    <Button type="submit" disabled={isSubmitting} className="rounded-2xl h-14 px-10 bg-background text-white font-black text-[10px] uppercase tracking-widest hover:scale-105 active:scale-95 transition-all flex items-center gap-2">
+                                        {isSubmitting ? <Loader2 className="animate-spin" size={16} /> : "Submit_Link"}
+                                    </Button>
+                                </form>
+                            </motion.div>
+                        ) : (
+                            <motion.div key="success" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} className="relative z-10 flex flex-col items-center">
+                                <div className="w-24 h-24 rounded-full bg-background flex items-center justify-center mb-8 shadow-2xl"><CheckCircle2 className="text-primary" size={48} /></div>
+                                <h2 className="text-5xl font-display font-black text-background mb-4 uppercase italic">Signal_Locked.</h2>
+                                <p className="text-background/80 text-lg font-bold uppercase tracking-widest">Protocol Initialized • Check Your Inlet</p>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
                 </div>
             </section>
 
@@ -317,12 +338,8 @@ export default function LandingPage() {
             <footer className="py-32 px-10 border-t border-white/5 bg-background">
                 <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-24">
                     <div className="text-center md:text-left">
-                        <div className="flex items-center gap-4 mb-8 justify-center md:justify-start">
-                            <Wrench size={32} className="text-primary/80" />
-                            <h4 className="text-3xl font-display font-bold text-white tracking-tight italic uppercase">Quick<span className="text-primary">Fix</span>_Hub</h4>
-                        </div>
-                        <p className="text-slate-600 text-xs font-bold uppercase tracking-[0.5em] italic mb-4">© 2026 Professional Service Hub • Enterprise_Architecture_v3.0</p>
-                        <p className="text-slate-800 text-[11px] font-bold uppercase tracking-[0.3em] font-medium tracking-widest">Authorized Portal End — Satellite_Sync_Stable</p>
+                        <div className="flex items-center gap-4 mb-8 justify-center md:justify-start"><Wrench size={32} className="text-primary/80" /><h4 className="text-3xl font-display font-bold text-white tracking-tight italic uppercase">Quick<span className="text-primary">Fix</span>_Hub</h4></div>
+                        <p className="text-slate-600 text-xs font-bold uppercase tracking-[0.5em] italic">© 2026 Professional Service Hub • Enterprise_v3.2</p>
                     </div>
                     <div className="flex flex-wrap justify-center gap-16 text-[11px] font-bold uppercase tracking-[0.5em] text-slate-500">
                         {["System_Protocol", "Technical_Docs", "Network_Policy", "Security_API"].map((l, i) => <a key={i} href="#" className="hover:text-primary transition-all relative group">{l}</a>)}
