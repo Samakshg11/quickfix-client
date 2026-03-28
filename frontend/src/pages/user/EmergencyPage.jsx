@@ -1,3 +1,4 @@
+import React from "react";
 // src/pages/user/EmergencyPage.jsx
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';

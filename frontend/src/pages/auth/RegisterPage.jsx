@@ -1,3 +1,4 @@
+import React from "react";
 // src/pages/auth/RegisterPage.jsx
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';

@@ -1,3 +1,4 @@
+import React from "react";
 // src/components/common/index.jsx
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';

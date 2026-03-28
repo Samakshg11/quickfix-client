@@ -1,3 +1,4 @@
+import React from "react";
 // src/pages/mechanic/MechanicAppointmentsPage.jsx
 import { useEffect } from 'react';
 import { motion } from 'framer-motion';

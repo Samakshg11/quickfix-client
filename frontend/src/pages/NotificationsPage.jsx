@@ -1,3 +1,4 @@
+import React from "react";
 // src/pages/NotificationsPage.jsx
 import { motion, AnimatePresence } from 'framer-motion';
 import { Bell, CheckCheck } from 'lucide-react';

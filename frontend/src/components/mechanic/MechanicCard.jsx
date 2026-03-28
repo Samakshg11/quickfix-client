@@ -1,3 +1,4 @@
+import React from "react";
 // src/components/mechanic/MechanicCard.jsx
 import { motion } from 'framer-motion';
 import { Star, MapPin, Wrench, Clock, Zap } from 'lucide-react';

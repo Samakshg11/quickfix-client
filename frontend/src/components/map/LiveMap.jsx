@@ -1,3 +1,4 @@
+import React from "react";
 // src/components/map/LiveMap.jsx
 import { useEffect, useRef } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap, ZoomControl } from 'react-leaflet';

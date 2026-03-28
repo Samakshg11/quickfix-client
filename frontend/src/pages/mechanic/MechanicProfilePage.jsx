@@ -1,3 +1,4 @@
+import React from "react";
 // src/pages/mechanic/MechanicProfilePage.jsx
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';

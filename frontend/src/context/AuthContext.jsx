@@ -1,18 +1,18 @@
 // src/context/AuthContext.jsx
-import { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { loginAPI, registerAPI, registerMechanicAPI, getMeAPI } from '../api/auth.api';
 import toast from 'react-hot-toast';
 
 const AuthContext = createContext(null);
 
 const TOKEN_KEY = 'qf_token';
-const USER_KEY  = 'qf_user';
+const USER_KEY = 'qf_user';
 
 export function AuthProvider({ children }) {
-  const [user, setUser]               = useState(() => {
+  const [user, setUser] = useState(() => {
     try { return JSON.parse(localStorage.getItem(USER_KEY)); } catch { return null; }
   });
-  const [token, setToken]             = useState(() => localStorage.getItem(TOKEN_KEY));
+  const [token, setToken] = useState(() => localStorage.getItem(TOKEN_KEY));
   const [initialLoading, setInitialLoading] = useState(true);
 
   // Persist helpers
@@ -45,7 +45,7 @@ export function AuthProvider({ children }) {
       }
     };
     verify();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const login = useCallback(async ({ email, password }) => {
@@ -85,9 +85,9 @@ export function AuthProvider({ children }) {
       token,
       initialLoading,
       isAuthenticated: !!user,
-      isUser:      user?.role === 'user',
-      isMechanic:  user?.role === 'mechanic',
-      isAdmin:     user?.role === 'admin',
+      isUser: user?.role === 'user',
+      isMechanic: user?.role === 'mechanic',
+      isAdmin: user?.role === 'admin',
       login,
       register,
       registerMechanic,

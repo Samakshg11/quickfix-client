@@ -1,3 +1,4 @@
+import React from "react";
 // src/components/layout/AppShell.jsx
 import { useState } from 'react';
 import { NavLink, useNavigate, Link } from 'react-router-dom';

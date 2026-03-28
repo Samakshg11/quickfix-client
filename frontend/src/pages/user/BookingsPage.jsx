@@ -1,3 +1,4 @@
+import React from "react";
 // src/pages/user/BookingsPage.jsx
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';

@@ -1,4 +1,5 @@
 // src/components/layout/RouteGuards.jsx
+import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import AppShell from './AppShell';
@@ -11,7 +12,7 @@ export function PrivateRoute({ allowedRoles }) {
   if (allowedRoles && !allowedRoles.includes(user?.role)) {
     // Redirect to role-appropriate home
     if (user?.role === 'mechanic') return <Navigate to="/mechanic/dashboard" replace />;
-    if (user?.role === 'admin')    return <Navigate to="/admin" replace />;
+    if (user?.role === 'admin') return <Navigate to="/admin" replace />;
     return <Navigate to="/dashboard" replace />;
   }
 
@@ -27,6 +28,6 @@ export function PublicRoute() {
   if (!isAuthenticated) return <Outlet />;
 
   if (user?.role === 'mechanic') return <Navigate to="/mechanic/dashboard" replace />;
-  if (user?.role === 'admin')    return <Navigate to="/admin" replace />;
+  if (user?.role === 'admin') return <Navigate to="/admin" replace />;
   return <Navigate to="/dashboard" replace />;
 }

@@ -1,3 +1,4 @@
+import React from "react";
 // src/components/booking/BookingCard.jsx
 import { forwardRef } from 'react';
 import { motion } from 'framer-motion';

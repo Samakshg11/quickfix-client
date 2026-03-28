@@ -1,3 +1,4 @@
+import React from "react";
 // src/components/booking/RatingModal.jsx
 import { useState } from 'react';
 import { Star } from 'lucide-react';

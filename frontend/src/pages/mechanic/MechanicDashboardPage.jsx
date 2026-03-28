@@ -1,3 +1,4 @@
+import React from "react";
 // src/pages/mechanic/MechanicDashboardPage.jsx
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';

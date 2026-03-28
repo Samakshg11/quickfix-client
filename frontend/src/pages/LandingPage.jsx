@@ -1,3 +1,4 @@
+import React from "react";
 // src/pages/LandingPage.jsx
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';

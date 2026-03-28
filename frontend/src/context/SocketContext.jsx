@@ -1,5 +1,5 @@
 // src/context/SocketContext.jsx
-import { createContext, useContext, useEffect, useRef, useState } from 'react';
+import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
 import { io } from 'socket.io-client';
 import { useAuth } from './AuthContext';
 
@@ -20,7 +20,7 @@ export function SocketProvider({ children }) {
       return;
     }
 
-    const socket = io(import.meta.env.VITE_SOCKET_URL || 'http://localhost:5000', {
+    const socket = io(import.meta.env.VITE_SOCKET_URL || 'http://localhost:5001', {
       auth: { token },
       transports: ['websocket'],
       reconnectionAttempts: 5,

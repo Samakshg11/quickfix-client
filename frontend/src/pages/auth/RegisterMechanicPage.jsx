@@ -1,3 +1,4 @@
+import React from "react";
 // src/pages/auth/RegisterMechanicPage.jsx
 import { useState, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
