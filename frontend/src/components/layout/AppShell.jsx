@@ -35,7 +35,7 @@ export default function AppShell({ children }) {
   const [collapsed, setCollapsed] = useState(false);
 
   // Admins see both their specific tools AND the user-level functions
-  const navItems = isAdmin ? [...ADMIN_NAV, ...USER_NAV] : isMechanic ? MECHANIC_NAV : USER_NAV;
+  const navItems = isAdmin ? ADMIN_NAV : isMechanic ? MECHANIC_NAV : USER_NAV;
 
   const handleLogout = () => { logout(); navigate('/'); };
 
