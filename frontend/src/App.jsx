@@ -52,6 +52,9 @@ export default function App() {
         {/* ── Public only (redirect if logged in) ─────────────── */}
         <Route element={<PublicRoute />}>
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/user/login" element={<LoginPage defaultRole="user" />} />
+          <Route path="/mechanic/login" element={<LoginPage defaultRole="mechanic" />} />
+          <Route path="/admin/login" element={<LoginPage defaultRole="admin" />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/register/mechanic" element={<RegisterMechanicPage />} />
         </Route>
