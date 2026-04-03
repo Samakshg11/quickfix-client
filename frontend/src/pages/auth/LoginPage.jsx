@@ -23,11 +23,11 @@ const ROLE_SETTINGS = {
     subtitle: 'Book help fast, track your mechanic live, and manage every service request from one place.',
     icon: User,
     iconClass: 'text-primary',
-    iconShellClass: 'bg-primary/12 border-primary/20',
-    accentClass: 'from-primary/35 via-primary/10 to-transparent',
+    iconShellClass: 'bg-primary/10 border-primary/20',
+    accentClass: 'from-primary/30 via-primary/10 to-transparent',
     ringClass: 'ring-primary/20',
     tabActiveClass: 'bg-primary text-background shadow-[0_18px_45px_-24px_rgba(143,245,255,0.9)]',
-    panelClass: 'border-primary/14 bg-primary/6',
+    panelClass: 'border-primary/20 bg-primary/10',
     buttonVariant: 'primary',
     emailPlaceholder: 'name@example.com',
     passwordPlaceholder: 'Enter your password',
@@ -47,11 +47,11 @@ const ROLE_SETTINGS = {
     subtitle: 'Review appointments, update progress in real time, and keep your service profile ready for dispatch.',
     icon: Wrench,
     iconClass: 'text-secondary',
-    iconShellClass: 'bg-secondary/12 border-secondary/20',
-    accentClass: 'from-secondary/35 via-secondary/10 to-transparent',
+    iconShellClass: 'bg-secondary/10 border-secondary/20',
+    accentClass: 'from-secondary/30 via-secondary/10 to-transparent',
     ringClass: 'ring-secondary/20',
     tabActiveClass: 'bg-secondary text-white shadow-[0_18px_45px_-24px_rgba(172,137,255,0.9)]',
-    panelClass: 'border-secondary/14 bg-secondary/6',
+    panelClass: 'border-secondary/20 bg-secondary/10',
     buttonVariant: 'secondary',
     emailPlaceholder: 'mechanic@example.com',
     passwordPlaceholder: 'Enter your password',
@@ -71,11 +71,11 @@ const ROLE_SETTINGS = {
     subtitle: 'Monitor platform activity, review mechanic approvals, and keep the QuickFix network running smoothly.',
     icon: ShieldCheck,
     iconClass: 'text-red-400',
-    iconShellClass: 'bg-red-500/12 border-red-500/20',
-    accentClass: 'from-red-500/35 via-red-500/10 to-transparent',
+    iconShellClass: 'bg-red-500/10 border-red-500/20',
+    accentClass: 'from-red-500/30 via-red-500/10 to-transparent',
     ringClass: 'ring-red-500/20',
     tabActiveClass: 'bg-red-500 text-white shadow-[0_18px_45px_-24px_rgba(239,68,68,0.95)]',
-    panelClass: 'border-red-500/14 bg-red-500/6',
+    panelClass: 'border-red-500/20 bg-red-500/10',
     buttonVariant: 'danger',
     emailPlaceholder: 'admin@example.com',
     passwordPlaceholder: 'Enter your password',
@@ -161,7 +161,7 @@ export default function LoginPage({ defaultRole = 'user' }) {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45 }}
-            className="flex flex-col justify-between rounded-[2.5rem] border border-white/8 bg-white/[0.03] p-6 shadow-[0_30px_120px_rgba(0,0,0,0.35)] backdrop-blur-2xl sm:p-8 lg:p-10"
+            className="flex flex-col justify-between rounded-[2.5rem] border border-white/10 bg-white/[0.03] p-6 shadow-[0_30px_120px_rgba(0,0,0,0.35)] backdrop-blur-2xl sm:p-8 lg:p-10"
           >
             <div>
               <Link to="/" className="inline-flex items-center gap-3 text-white/85 transition-colors hover:text-white">
@@ -198,7 +198,7 @@ export default function LoginPage({ defaultRole = 'user' }) {
                       className={`rounded-[1.6rem] border px-4 py-4 text-left transition-all duration-300 ${
                         activeRole === role
                           ? `${config.tabActiveClass} border-transparent`
-                          : 'border-white/8 bg-white/[0.03] text-slate-300 hover:border-white/16 hover:bg-white/[0.05] hover:text-white'
+                          : 'border-white/10 bg-white/[0.03] text-slate-300 hover:border-white/20 hover:bg-white/[0.05] hover:text-white'
                       }`}
                     >
                       <div className="flex items-center gap-3">
@@ -237,11 +237,11 @@ export default function LoginPage({ defaultRole = 'user' }) {
             </div>
 
             <div className="mt-8 flex flex-wrap gap-3 text-xs font-semibold uppercase tracking-[0.24em] text-slate-500">
-              <span className="inline-flex items-center gap-2 rounded-full border border-white/8 px-4 py-2">
+              <span className="inline-flex items-center gap-2 rounded-full border border-white/10 px-4 py-2">
                 <Clock3 size={14} />
                 Live dispatch tracking
               </span>
-              <span className="inline-flex items-center gap-2 rounded-full border border-white/8 px-4 py-2">
+              <span className="inline-flex items-center gap-2 rounded-full border border-white/10 px-4 py-2">
                 <ShieldCheck size={14} />
                 Secure role-based access
               </span>
