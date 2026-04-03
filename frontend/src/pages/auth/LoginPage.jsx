@@ -3,9 +3,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
   ArrowRight,
+  CheckCircle2,
   Clock3,
+  Compass,
+  Gauge,
   Lock,
   Mail,
+  Radar,
   ShieldCheck,
   Sparkles,
   User,
@@ -37,6 +41,12 @@ const ROLE_SETTINGS = {
       'Follow bookings, ETAs, and notifications',
       'Access your dashboard instantly after login',
     ],
+    featureStats: [
+      { label: 'Avg dispatch', value: '12 min' },
+      { label: 'Live updates', value: '24/7' },
+    ],
+    showcaseTitle: 'Driver console',
+    showcaseText: 'A calmer, clearer sign-in flow for people who need help fast and want instant visibility after booking.',
     registerPath: '/register',
     registerLabel: 'Create a driver account',
     loginPath: '/user/login',
@@ -61,6 +71,12 @@ const ROLE_SETTINGS = {
       'Manage profile, availability, and updates',
       'Move from dispatch to completion without friction',
     ],
+    featureStats: [
+      { label: 'Jobs synced', value: 'Real time' },
+      { label: 'Profile ready', value: 'Always' },
+    ],
+    showcaseTitle: 'Mechanic workspace',
+    showcaseText: 'Sharper hierarchy, faster scanning, and a more operational feel for mechanics moving between active jobs.',
     registerPath: '/register/mechanic',
     registerLabel: 'Apply as a mechanic',
     loginPath: '/mechanic/login',
@@ -85,6 +101,12 @@ const ROLE_SETTINGS = {
       'Keep operations visible across the platform',
       'Jump directly into the admin workspace',
     ],
+    featureStats: [
+      { label: 'Approvals', value: 'Centralized' },
+      { label: 'Visibility', value: 'Full' },
+    ],
+    showcaseTitle: 'Admin oversight',
+    showcaseText: 'Stronger control-room cues help admins understand they are entering a restricted operational surface.',
     registerPath: null,
     registerLabel: null,
     loginPath: '/admin/login',
@@ -116,6 +138,27 @@ export default function LoginPage({ defaultRole = 'user' }) {
 
   const currentRole = useMemo(() => ROLE_SETTINGS[activeRole], [activeRole]);
   const CurrentIcon = currentRole.icon;
+  const SCENES = {
+    user: {
+      lineClass: 'from-primary/70 via-primary/10 to-transparent',
+      glowClass: 'bg-primary/20',
+      panelClass: 'border-primary/20 bg-primary/10',
+      badge: 'Trip-ready assistance',
+    },
+    mechanic: {
+      lineClass: 'from-secondary/70 via-secondary/10 to-transparent',
+      glowClass: 'bg-secondary/20',
+      panelClass: 'border-secondary/20 bg-secondary/10',
+      badge: 'Operational dispatch',
+    },
+    admin: {
+      lineClass: 'from-red-500/70 via-red-500/10 to-transparent',
+      glowClass: 'bg-red-500/20',
+      panelClass: 'border-red-500/20 bg-red-500/10',
+      badge: 'Restricted access',
+    },
+  };
+  const currentScene = SCENES[activeRole];
 
   const handleRoleChange = (role) => {
     setActiveRole(role);
@@ -150,18 +193,28 @@ export default function LoginPage({ defaultRole = 'user' }) {
     <div className="relative min-h-screen overflow-hidden bg-background px-4 py-8 selection:bg-primary/20 sm:px-6 lg:px-8">
       <div className="absolute inset-0 pointer-events-none">
         <div className={`absolute inset-x-0 top-0 h-[32rem] bg-gradient-to-b ${currentRole.accentClass}`} />
-        <div className="absolute left-[-8rem] top-24 h-72 w-72 rounded-full bg-white/5 blur-3xl" />
-        <div className="absolute bottom-[-6rem] right-[-3rem] h-80 w-80 rounded-full bg-white/5 blur-3xl" />
+        <motion.div
+          animate={{ x: [0, 24, 0], y: [0, -18, 0] }}
+          transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
+          className={`absolute left-[-8rem] top-24 h-72 w-72 rounded-full blur-3xl ${currentScene.glowClass}`}
+        />
+        <motion.div
+          animate={{ x: [0, -18, 0], y: [0, 20, 0] }}
+          transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
+          className="absolute bottom-[-6rem] right-[-3rem] h-80 w-80 rounded-full bg-white/5 blur-3xl"
+        />
+        <div className="absolute inset-y-0 left-[8%] w-px bg-gradient-to-b from-transparent via-white/10 to-transparent" />
+        <div className={`absolute inset-x-[12%] top-[18%] h-px bg-gradient-to-r ${currentScene.lineClass}`} />
         <div className="absolute inset-0 carbon-overlay opacity-[0.03]" />
       </div>
 
       <div className="relative mx-auto flex min-h-[calc(100vh-4rem)] w-full max-w-6xl items-center">
-        <div className="grid w-full gap-8 lg:grid-cols-[1.05fr_0.95fr]">
+        <div className="grid w-full gap-6 lg:grid-cols-[1.08fr_0.92fr] lg:gap-8">
           <motion.section
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45 }}
-            className="flex flex-col justify-between rounded-[2.5rem] border border-white/10 bg-white/[0.03] p-6 shadow-[0_30px_120px_rgba(0,0,0,0.35)] backdrop-blur-2xl sm:p-8 lg:p-10"
+            className="flex flex-col justify-between rounded-[2.5rem] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.015))] p-6 shadow-[0_30px_120px_rgba(0,0,0,0.35)] backdrop-blur-2xl sm:p-8 lg:p-10"
           >
             <div>
               <Link to="/" className="inline-flex items-center gap-3 text-white/85 transition-colors hover:text-white">
@@ -175,6 +228,10 @@ export default function LoginPage({ defaultRole = 'user' }) {
               </Link>
 
               <div className="mt-10 max-w-xl">
+                <div className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-[0.65rem] font-bold uppercase tracking-[0.35em] text-slate-300 ${currentScene.panelClass}`}>
+                  <Radar size={14} className={currentRole.iconClass} />
+                  {currentScene.badge}
+                </div>
                 <p className="text-[0.68rem] font-bold uppercase tracking-[0.45em] text-slate-400">
                   {currentRole.eyebrow}
                 </p>
@@ -184,6 +241,30 @@ export default function LoginPage({ defaultRole = 'user' }) {
                 <p className="mt-5 max-w-lg text-base leading-7 text-slate-300 sm:text-lg">
                   {currentRole.subtitle}
                 </p>
+              </div>
+
+              <div className="mt-8 grid gap-4 md:grid-cols-[1.2fr_0.8fr]">
+                <div className={`relative overflow-hidden rounded-[2rem] border p-5 ${currentScene.panelClass}`}>
+                  <div className={`absolute right-[-2rem] top-[-2rem] h-24 w-24 rounded-full blur-3xl ${currentScene.glowClass}`} />
+                  <p className="text-sm font-semibold text-white">{currentRole.showcaseTitle}</p>
+                  <p className="mt-2 max-w-md text-sm leading-6 text-slate-300">{currentRole.showcaseText}</p>
+                  <div className="mt-5 flex items-start gap-3 rounded-[1.5rem] border border-white/10 bg-black/10 p-4">
+                    <Compass size={18} className={`mt-0.5 shrink-0 ${currentRole.iconClass}`} />
+                    <div>
+                      <p className="text-xs font-bold uppercase tracking-[0.28em] text-slate-400">Designed for clarity</p>
+                      <p className="mt-2 text-sm leading-6 text-slate-300">More contrast, calmer spacing, and stronger emphasis on the active role so the page feels purposeful instead of generic.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-1">
+                  {currentRole.featureStats.map((stat) => (
+                    <div key={stat.label} className="rounded-[1.8rem] border border-white/10 bg-white/[0.035] p-5">
+                      <p className="text-[0.65rem] font-bold uppercase tracking-[0.32em] text-slate-500">{stat.label}</p>
+                      <p className="mt-3 text-2xl font-display font-bold text-white">{stat.value}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
 
               <div className="mt-10 grid gap-4 sm:grid-cols-3">
@@ -252,9 +333,10 @@ export default function LoginPage({ defaultRole = 'user' }) {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45, delay: 0.08 }}
-            className={`relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-surface-low/80 p-6 shadow-[0_30px_120px_rgba(0,0,0,0.45)] backdrop-blur-3xl sm:p-8 lg:p-10 ${currentRole.ringClass} ring-1`}
+            className={`relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-[linear-gradient(180deg,rgba(16,19,26,0.92),rgba(11,14,20,0.96))] p-6 shadow-[0_30px_120px_rgba(0,0,0,0.45)] backdrop-blur-3xl sm:p-8 lg:p-10 ${currentRole.ringClass} ring-1`}
           >
             <div className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${currentRole.accentClass}`} />
+            <div className="absolute right-[-4rem] top-16 h-36 w-36 rounded-full bg-white/5 blur-3xl" />
 
             <div className="mb-8">
               <p className="text-[0.68rem] font-bold uppercase tracking-[0.35em] text-slate-500">
@@ -264,6 +346,24 @@ export default function LoginPage({ defaultRole = 'user' }) {
               <p className="mt-3 max-w-md text-sm leading-6 text-slate-400">
                 Use the account approved for this role. After login, we&apos;ll take you to the correct dashboard automatically.
               </p>
+            </div>
+
+            <div className="mb-6 grid gap-3 sm:grid-cols-3">
+              <div className="rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-4">
+                <Gauge size={16} className={`mb-3 ${currentRole.iconClass}`} />
+                <p className="text-[0.65rem] font-bold uppercase tracking-[0.28em] text-slate-500">Fast path</p>
+                <p className="mt-2 text-sm text-slate-300">Minimal friction to get into the right dashboard.</p>
+              </div>
+              <div className="rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-4">
+                <ShieldCheck size={16} className={`mb-3 ${currentRole.iconClass}`} />
+                <p className="text-[0.65rem] font-bold uppercase tracking-[0.28em] text-slate-500">Role aware</p>
+                <p className="mt-2 text-sm text-slate-300">Redirects follow the authenticated account role.</p>
+              </div>
+              <div className="rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-4">
+                <CheckCircle2 size={16} className={`mb-3 ${currentRole.iconClass}`} />
+                <p className="text-[0.65rem] font-bold uppercase tracking-[0.28em] text-slate-500">Cleaner entry</p>
+                <p className="mt-2 text-sm text-slate-300">Sharper hierarchy on desktop and mobile.</p>
+              </div>
             </div>
 
             <form onSubmit={handleLogin} className="space-y-5">
