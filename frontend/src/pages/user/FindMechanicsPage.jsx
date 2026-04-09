@@ -13,7 +13,7 @@ import toast from 'react-hot-toast';
 const SKILL_FILTERS = ['All', 'Engine Repair', 'Tyre Change', 'Battery', 'AC Repair', 'Brake Service', 'Electrical'];
 
 export default function FindMechanicsPage() {
-  const { location: geoLoc, loading: geoLoading } = useGeolocation();
+  const { location: geoLoc, loading: geoLoading, error: geoError, retry: retryGeolocation } = useGeolocation();
 
   const [mechanics, setMechanics] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -54,6 +54,9 @@ export default function FindMechanicsPage() {
         <p className="text-slate-400 text-sm">
           {geoLoading ? 'Detecting your location…' : geoLoc ? `Showing mechanics within ${radiusKm} km` : 'Enable location to find nearby mechanics'}
         </p>
+        {!geoLoading && geoError && (
+          <p className="mt-2 text-sm text-amber-400">{geoError}</p>
+        )}
       </div>
 
       {/* Controls */}
@@ -118,6 +121,20 @@ export default function FindMechanicsPage() {
           <Loader2 size={32} className="animate-spin text-amber-400" />
           <p className="text-slate-400 text-sm">Detecting your location…</p>
         </div>
+      ) : !geoLoc && geoError ? (
+        <EmptyState
+          icon="📍"
+          title="Location unavailable"
+          description={geoError}
+          action={
+            <button
+              onClick={retryGeolocation}
+              className="mt-4 rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-2 text-sm font-medium text-amber-300 transition-colors hover:bg-amber-500/20"
+            >
+              Retry location
+            </button>
+          }
+        />
       ) : loading ? (
         <Spinner size="lg" className="py-16" />
       ) : view === 'map' ? (

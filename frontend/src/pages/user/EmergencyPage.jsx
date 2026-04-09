@@ -7,12 +7,12 @@ import { AlertTriangle, MapPin, Loader2 } from 'lucide-react';
 import { getNearbyMechanicsAPI } from '../../api/mechanic.api';
 import { createBookingAPI } from '../../api/booking.api';
 import { useGeolocation } from '../../hooks/useGeolocation';
-import { Button, Spinner } from '../../components/common';
+import { Button } from '../../components/common';
 import toast from 'react-hot-toast';
 
 export default function EmergencyPage() {
   const navigate = useNavigate();
-  const { location: geoLoc, loading: geoLoading } = useGeolocation();
+  const { location: geoLoc, loading: geoLoading, error: geoError, retry: retryGeolocation } = useGeolocation();
 
   const [issue, setIssue]         = useState('');
   const [submitting, setSubmitting] = useState(false);
@@ -79,7 +79,21 @@ export default function EmergencyPage() {
             {geoLoc && (
               <p className="text-xs text-slate-500">{geoLoc.lat.toFixed(5)}, {geoLoc.lng.toFixed(5)}</p>
             )}
+            {!geoLoc && geoError && (
+              <p className="text-xs text-amber-400">{geoError}</p>
+            )}
           </div>
+          {!geoLoading && !geoLoc && (
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              className="ml-auto rounded-xl"
+              onClick={retryGeolocation}
+            >
+              Retry
+            </Button>
+          )}
         </div>
 
         {/* Form */}
