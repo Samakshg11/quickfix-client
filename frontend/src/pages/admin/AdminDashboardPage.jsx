@@ -5,10 +5,9 @@ import {
   ShieldCheck, AlertCircle, Activity, Zap,
   ArrowRight, CheckCircle2, XCircle, Clock
 } from 'lucide-react';
-import axios from 'axios';
 import { Button } from '../../components/common';
 import { Link } from 'react-router-dom';
-import toast from 'react-hot-toast';
+import client from '../../api/client';
 
 const StatCard = ({ label, value, icon: Icon, trend, color }) => (
   <motion.div
@@ -46,21 +45,19 @@ export default function AdminDashboardPage() {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const [usersRes, mechanicsRes, bookingsRes] = await Promise.all([
-          axios.get('/api/admin/users'),
-          axios.get('/api/admin/mechanics'),
-          axios.get('/api/admin/bookings')
+        const [statsRes, pendingRes] = await Promise.all([
+          client.get('/admin/stats'),
+          client.get('/admin/mechanics/pending'),
         ]);
 
-        const allMechanics = mechanicsRes.data.data;
-        const pendingCount = allMechanics.filter(m => !m.isApproved).length;
+        const analytics = statsRes.data.data;
 
         setStats({
-          totalUsers: usersRes.data.count || 0,
-          totalMechanics: mechanicsRes.data.count || 0,
-          totalBookings: bookingsRes.data.count || 0,
-          revenue: bookingsRes.data.data.reduce((acc, b) => acc + (b.totalPrice || 0), 0),
-          pendingMechanics: pendingCount
+          totalUsers: analytics.totalUsers || 0,
+          totalMechanics: analytics.totalMechanics || 0,
+          totalBookings: analytics.totalBookings || 0,
+          revenue: 0,
+          pendingMechanics: pendingRes.data.count || analytics.pendingApprovals || 0,
         });
       } catch (err) {
         console.error('Analytics fetch failed:', err);
