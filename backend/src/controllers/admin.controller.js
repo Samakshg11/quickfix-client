@@ -3,6 +3,7 @@ const Mechanic = require('../models/Mechanic.model');
 const User = require('../models/User.model');
 const Booking = require('../models/Booking.model');
 const NotificationService = require('../services/notification.service');
+const CacheService = require('../services/cache.service');
 const catchAsync = require('../utils/catchAsync');
 const { AppError } = require('../middleware/error.middleware');
 
@@ -31,6 +32,11 @@ exports.approveMechanic = catchAsync(async (req, res) => {
     data: {},
   });
 
+  await Promise.all([
+    CacheService.del('admin:stats'),
+    CacheService.delByPattern('mechanics:nearby:*'),
+  ]);
+
   res.status(200).json({ success: true, message: 'Mechanic approved.', data: mechanic });
 });
 
@@ -41,23 +47,35 @@ exports.rejectMechanic = catchAsync(async (req, res) => {
   await User.findByIdAndDelete(mechanic.user._id);
   await mechanic.deleteOne();
 
+  await Promise.all([
+    CacheService.del('admin:stats'),
+    CacheService.delByPattern('mechanics:nearby:*'),
+  ]);
+
   res.status(200).json({ success: true, message: 'Mechanic rejected and removed.' });
 });
 
 exports.getStats = catchAsync(async (req, res) => {
-  const [totalUsers, totalMechanics, totalBookings, pendingApprovals] = await Promise.all([
-    User.countDocuments({ role: 'user' }),
-    Mechanic.countDocuments({ isApproved: true }),
-    Booking.countDocuments(),
-    Mechanic.countDocuments({ isApproved: false }),
-  ]);
+  let data = await CacheService.get('admin:stats');
 
-  const bookingsByStatus = await Booking.aggregate([
-    { $group: { _id: '$status', count: { $sum: 1 } } },
-  ]);
+  if (!data) {
+    const [totalUsers, totalMechanics, totalBookings, pendingApprovals] = await Promise.all([
+      User.countDocuments({ role: 'user' }),
+      Mechanic.countDocuments({ isApproved: true }),
+      Booking.countDocuments(),
+      Mechanic.countDocuments({ isApproved: false }),
+    ]);
+
+    const bookingsByStatus = await Booking.aggregate([
+      { $group: { _id: '$status', count: { $sum: 1 } } },
+    ]);
+
+    data = { totalUsers, totalMechanics, totalBookings, pendingApprovals, bookingsByStatus };
+    await CacheService.set('admin:stats', data, 120);
+  }
 
   res.status(200).json({
     success: true,
-    data: { totalUsers, totalMechanics, totalBookings, pendingApprovals, bookingsByStatus },
+    data,
   });
 });

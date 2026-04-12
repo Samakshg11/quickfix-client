@@ -1,17 +1,31 @@
 // src/controllers/mechanic.controller.js
 const MechanicService = require('../services/mechanic.service');
+const CacheService = require('../services/cache.service');
 const catchAsync = require('../utils/catchAsync');
 const { AppError } = require('../middleware/error.middleware');
 
 exports.getNearby = catchAsync(async (req, res) => {
   const { lat, lng, radius, skill } = req.query;
   if (!lat || !lng) throw new AppError('lat and lng are required.', 400);
-  const mechanics = await MechanicService.getNearbyMechanics({
-    lat: parseFloat(lat),
-    lng: parseFloat(lng),
-    radiusKm: radius ? parseFloat(radius) : 50,
-    skill,
-  });
+
+  const parsedLat = parseFloat(lat);
+  const parsedLng = parseFloat(lng);
+  const radiusKm = radius ? parseFloat(radius) : 50;
+  const cacheKey = `mechanics:nearby:${parsedLat.toFixed(3)}:${parsedLng.toFixed(3)}:${radiusKm}:${skill || 'all'}`;
+
+  let mechanics = await CacheService.get(cacheKey);
+
+  if (!mechanics) {
+    mechanics = await MechanicService.getNearbyMechanics({
+      lat: parsedLat,
+      lng: parsedLng,
+      radiusKm,
+      skill,
+    });
+
+    await CacheService.set(cacheKey, mechanics, 120);
+  }
+
   res.status(200).json({ success: true, count: mechanics.length, data: mechanics });
 });
 

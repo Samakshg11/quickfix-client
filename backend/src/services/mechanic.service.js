@@ -1,5 +1,6 @@
 // src/services/mechanic.service.js
 const Mechanic = require('../models/Mechanic.model');
+const CacheService = require('./cache.service');
 const { AppError } = require('../middleware/error.middleware');
 
 const getNearbyMechanics = async ({ lat, lng, radiusKm = 50, skill }) => {
@@ -52,11 +53,14 @@ const updateLocation = async (userId, { lat, lng }) => {
     { new: true }
   );
   if (!mechanic) throw new AppError('Mechanic profile not found.', 404);
+  await CacheService.delByPattern('mechanics:nearby:*');
   return mechanic;
 };
 
 const setOnlineStatus = async (userId, isOnline) => {
-  return Mechanic.findOneAndUpdate({ user: userId }, { isOnline }, { new: true });
+  const mechanic = await Mechanic.findOneAndUpdate({ user: userId }, { isOnline }, { new: true });
+  await CacheService.delByPattern('mechanics:nearby:*');
+  return mechanic;
 };
 
 const updateProfile = async (userId, updates) => {
@@ -66,6 +70,7 @@ const updateProfile = async (userId, updates) => {
 
   const mechanic = await Mechanic.findOneAndUpdate({ user: userId }, filtered, { new: true, runValidators: true });
   if (!mechanic) throw new AppError('Mechanic profile not found.', 404);
+  await CacheService.delByPattern('mechanics:nearby:*');
   return mechanic;
 };
 
