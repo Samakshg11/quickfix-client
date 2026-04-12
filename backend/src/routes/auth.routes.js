@@ -11,7 +11,7 @@ router.post(
   '/register',
   [
     body('name').trim().notEmpty().withMessage('Name is required.'),
-    body('email').isEmail().withMessage('Valid email required.'),
+    body('email').trim().toLowerCase().isEmail().withMessage('Valid email required.'),
     body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters.'),
   ],
   validate,
@@ -22,7 +22,7 @@ router.post(
   '/register/mechanic',
   [
     body('name').trim().notEmpty(),
-    body('email').isEmail(),
+    body('email').trim().toLowerCase().isEmail(),
     body('password').isLength({ min: 6 }),
     body('phone').notEmpty().withMessage('Phone is required.'),
     body('skills').notEmpty().withMessage('Skills are required.'),
@@ -36,7 +36,7 @@ router.post(
 router.post(
   '/login',
   [
-    body('email').isEmail().withMessage('Email protocol missing or invalid.'),
+    body('email').trim().toLowerCase().isEmail().withMessage('Email protocol missing or invalid.'),
     body('password').notEmpty().withMessage('Security key required.'),
   ],
   validate,
