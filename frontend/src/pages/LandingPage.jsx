@@ -175,7 +175,7 @@ export default function LandingPage() {
               className="mt-14 flex flex-col justify-center gap-5 sm:flex-row"
             >
               <Link to="/register">
-                <Button size="lg" className="h-16 px-10 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 text-[#030712] font-black uppercase tracking-[0.2em] shadow-[0_0_40px_-5px_rgba(6,182,212,0.5)] hover:scale-105 transition-transform text-xs">
+                <Button size="lg" variant="cyber" className="h-16 px-10 rounded-full font-black uppercase tracking-[0.2em] text-xs">
                   Initiate Connection
                   <ArrowRight size={18} className="ml-2" />
                 </Button>
@@ -298,8 +298,8 @@ export default function LandingPage() {
         {/* ── Platforms / Nodes ────────────────────────────── */}
         <section className="px-6 py-24 lg:py-48">
           <div className="mx-auto max-w-3xl text-center mb-24">
-             <h2 className="text-5xl font-display font-black tracking-tighter italic">Platform <span className="text-cyan-500">Nodes</span></h2>
-             <p className="mt-6 text-slate-400 text-lg">One infrastructure, synchronized for three operational perspectives.</p>
+             <h2 className="text-5xl font-display font-black tracking-tighter italic uppercase underline decoration-cyan-500 decoration-4 underline-offset-8">The Platform of <br /> <span className="text-cyan-500">Integration</span></h2>
+             <p className="mt-8 text-slate-400 text-lg">One infrastructure, synchronized for three operational perspectives.</p>
           </div>
           
           <div className="mx-auto max-w-7xl">
@@ -344,7 +344,7 @@ export default function LandingPage() {
             
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <Link to="/register">
-                <Button size="lg" className="h-16 px-12 rounded-2xl bg-cyan-500 text-[#030712] font-black uppercase tracking-[0.2em] w-full sm:w-auto">
+                <Button size="lg" variant="cyber" className="h-16 px-12 rounded-2xl font-black uppercase tracking-[0.2em] w-full sm:w-auto">
                   Get Started
                 </Button>
               </Link>
