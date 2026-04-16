@@ -337,8 +337,8 @@ export default function LandingPage() {
         {/* ── Footer Link Section (Support) ────────────────────── */}
         <section id="support" className="px-6 py-24 lg:py-48 text-center bg-gradient-to-b from-transparent to-cyan-500/5">
           <div className="mx-auto max-w-3xl">
-            <h2 className="text-6xl md:text-8xl font-display font-black tracking-tighter italic mb-10 leading-[1.2]">
-              Ready to <br /> <span className="inline-block pb-6 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Override?</span>
+            <h2 className="text-6xl md:text-8xl font-display font-black tracking-tighter italic mb-10 overflow-visible">
+              Ready to <br /> <span className="inline-block py-6 px-4 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 leading-[1.3]">Override?</span>
             </h2>
             <p className="text-slate-400 text-lg mb-14">Get started as a user or initialize your mechanic node today.</p>
             
