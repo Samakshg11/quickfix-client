@@ -38,11 +38,12 @@ export function Button({ children, variant = 'primary', size = 'md', loading = f
   const base = 'inline-flex items-center justify-center gap-2 font-bold rounded-2xl transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed transform active:scale-95 transition-all';
 
   const variants = {
-    primary: 'bg-primary text-background hover:bg-white hover:shadow-[0_0_30px_-5px_rgba(143,245,255,0.4)]',
+    primary: 'bg-primary text-black hover:bg-white hover:shadow-[0_0_30px_-5px_rgba(143,245,255,0.4)]',
     secondary: 'bg-secondary text-white hover:bg-[#874cff] hover:shadow-[0_0_30px_-5px_rgba(172,137,255,0.4)]',
     tertiary: 'bg-tertiary text-background hover:bg-[#afee00]',
     outline: 'bg-transparent border border-white/10 hover:border-white/20 text-white hover:bg-white/5',
     danger: 'bg-red-600/10 text-red-500 border border-red-500/20 hover:bg-red-600/20',
+    cyber: 'bg-gradient-to-r from-cyan-500 to-blue-600 text-black shadow-[0_0_40px_-10px_rgba(6,182,212,0.5)] hover:scale-[1.02] active:scale-95',
   };
 
   const sizes = {
