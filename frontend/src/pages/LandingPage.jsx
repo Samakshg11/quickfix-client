@@ -153,10 +153,10 @@ export default function LandingPage() {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="text-6xl md:text-8xl lg:text-[9rem] font-display font-black leading-[1.2] tracking-tighter italic"
+              className="text-6xl md:text-8xl lg:text-[9rem] font-display font-black tracking-tighter italic overflow-visible"
             >
               Automation <br /> 
-              <span className="inline-block pb-8 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-500 to-indigo-600">Sovereignty</span>
+              <span className="inline-block py-6 px-4 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-500 to-indigo-600 leading-[1.3]">Sovereignty</span>
             </motion.h1>
 
             <motion.p 
