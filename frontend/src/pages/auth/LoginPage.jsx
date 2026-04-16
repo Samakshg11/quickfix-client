@@ -182,7 +182,7 @@ export default function LoginPage({ defaultRole = 'user' }) {
 
       if (resolvedRole !== activeRole) {
         // Clear the session if it's the wrong portal
-        logout();
+        logout(true);
         toast.error(`Invalid credentials for ${activeRole} portal.`);
         setLoading(false);
         return;

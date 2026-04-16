@@ -66,9 +66,9 @@ export function AuthProvider({ children }) {
     return res.data;
   }, []);
 
-  const logout = useCallback(() => {
+  const logout = useCallback((silent = false) => {
     clearAuth();
-    toast.success('Logged out.');
+    if (!silent) toast.success('Logged out.');
   }, []);
 
   const updateUser = useCallback((updates) => {
