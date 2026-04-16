@@ -110,8 +110,8 @@ export default function LandingPage() {
               <Zap size={22} className="text-cyan-400" />
             </div>
             <div className="flex flex-col">
-              <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-slate-500">QuickFix Grid</span>
-              <span className="text-xl font-display font-black tracking-tighter text-white">QUICKFIX.AI</span>
+              <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-slate-500">QuickFix Network</span>
+              <span className="text-xl font-display font-black tracking-tighter text-white">QUICKFIX</span>
             </div>
           </Link>
 
@@ -153,7 +153,7 @@ export default function LandingPage() {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="text-6xl md:text-8xl lg:text-[9rem] font-display font-black leading-[0.85] tracking-tighter italic"
+              className="text-6xl md:text-8xl lg:text-[9rem] font-display font-black leading-[1.1] tracking-tighter italic pb-4"
             >
               Automation <br /> 
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-500 to-indigo-600">Sovereignty</span>
@@ -184,8 +184,8 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* ── Feature Cards ────────────────────────────── */}
-        <section className="px-6 py-24 bg-white/[0.02] border-y border-white/5">
+        {/* ── Feature Cards (Protocols) ────────────────────────── */}
+        <section id="protocols" className="px-6 py-24 bg-white/[0.02] border-y border-white/5">
           <div className="mx-auto max-w-7xl">
             <div className="grid gap-8 lg:grid-cols-3">
               {features.map((feature, i) => (
@@ -216,8 +216,8 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* ── Environment Visual ────────────────────────────── */}
-        <section className="px-6 py-24 lg:py-48 overflow-hidden">
+        {/* ── Environment Visual (Infrastructure) ────────────────── */}
+        <section id="infrastructure" className="px-6 py-24 lg:py-48 overflow-hidden">
           <div className="mx-auto max-w-7xl">
             <div className="grid gap-20 lg:grid-cols-2 lg:items-center">
               <motion.div
@@ -256,8 +256,8 @@ export default function LandingPage() {
                     </div>
                   </div>
                   <div className="absolute bottom-8 left-8 right-8 p-6 glass rounded-3xl">
-                    <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-cyan-400 mb-2">Live Environment</p>
-                    <p className="text-lg font-display font-bold">Node-0014: Active</p>
+                    <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-cyan-400 mb-2">System Status</p>
+                    <p className="text-lg font-display font-bold">Network Integrity: Verified</p>
                   </div>
                 </div>
               </motion.div>
@@ -295,8 +295,8 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* ── Platforms / Nodes ────────────────────────────── */}
-        <section className="px-6 py-24 lg:py-48">
+        {/* ── Platforms / Nodes (Nodes) ────────────────────────── */}
+        <section id="nodes" className="px-6 py-24 lg:py-48">
           <div className="mx-auto max-w-3xl text-center mb-24">
              <h2 className="text-5xl font-display font-black tracking-tighter italic uppercase underline decoration-cyan-500 decoration-4 underline-offset-8">The Platform of <br /> <span className="text-cyan-500">Integration</span></h2>
              <p className="mt-8 text-slate-400 text-lg">One infrastructure, synchronized for three operational perspectives.</p>
@@ -334,8 +334,8 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* ── Footer Link Section ────────────────────────────── */}
-        <section className="px-6 py-24 lg:py-48 text-center bg-gradient-to-b from-transparent to-cyan-500/5">
+        {/* ── Footer Link Section (Support) ────────────────────── */}
+        <section id="support" className="px-6 py-24 lg:py-48 text-center bg-gradient-to-b from-transparent to-cyan-500/5">
           <div className="mx-auto max-w-3xl">
             <h2 className="text-6xl md:text-8xl font-display font-black tracking-tighter italic mb-10">
               Ready to <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Override?</span>
