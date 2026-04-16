@@ -63,7 +63,7 @@ const workflow = [
 
 const roleCards = [
   {
-    title: 'Driver experience',
+    title: 'User experience',
     body: 'Search nearby mechanics, place requests fast, and follow service progress from one clean flow.',
   },
   {

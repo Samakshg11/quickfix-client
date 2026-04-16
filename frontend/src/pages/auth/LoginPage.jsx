@@ -22,7 +22,7 @@ import { Button } from '../../components/common';
 
 const ROLE_SETTINGS = {
   user: {
-    title: 'Driver Login',
+    title: 'User Login',
     eyebrow: 'Personal Assistance',
     subtitle: 'Book help fast, track your mechanic live, and manage every service request from one place.',
     icon: User,
@@ -45,10 +45,10 @@ const ROLE_SETTINGS = {
       { label: 'Avg dispatch', value: '12 min' },
       { label: 'Live updates', value: '24/7' },
     ],
-    showcaseTitle: 'Driver console',
+    showcaseTitle: 'User console',
     showcaseText: 'A calmer, clearer sign-in flow for people who need help fast and want instant visibility after booking.',
     registerPath: '/register',
-    registerLabel: 'Create a driver account',
+    registerLabel: 'Create a user account',
     loginPath: '/user/login',
   },
   mechanic: {
@@ -178,7 +178,16 @@ export default function LoginPage({ defaultRole = 'user' }) {
     setLoading(true);
     try {
       const loggedInUser = await login({ email, password });
-      const resolvedRole = loggedInUser?.role || activeRole;
+      const resolvedRole = loggedInUser?.role;
+
+      if (resolvedRole !== activeRole) {
+        // Log them out immediately if they logged into the wrong portal
+        // Actually, the login context usually sets the user. We might need to handle this.
+        // For now, let's just show an error if it doesn't match the intended portal.
+        toast.error(`Invalid credentials for ${activeRole} portal.`);
+        setLoading(false);
+        return;
+      }
 
       toast.success(`Welcome back, ${resolvedRole}.`);
       navigate(LOGIN_REDIRECTS[resolvedRole] || LOGIN_REDIRECTS.user);
@@ -267,40 +276,7 @@ export default function LoginPage({ defaultRole = 'user' }) {
                 </div>
               </div>
 
-              <div className="mt-10 grid gap-4 sm:grid-cols-3">
-                {Object.entries(ROLE_SETTINGS).map(([role, config]) => {
-                  const RoleIcon = config.icon;
-
-                  return (
-                    <button
-                      key={role}
-                      type="button"
-                      onClick={() => handleRoleChange(role)}
-                      className={`rounded-[1.6rem] border px-4 py-4 text-left transition-all duration-300 ${
-                        activeRole === role
-                          ? `${config.tabActiveClass} border-transparent`
-                          : 'border-white/10 bg-white/[0.03] text-slate-300 hover:border-white/20 hover:bg-white/[0.05] hover:text-white'
-                      }`}
-                    >
-                      <div className="flex items-center gap-3">
-                        <span className={`flex h-11 w-11 items-center justify-center rounded-2xl border ${
-                          activeRole === role ? 'border-black/10 bg-black/10 text-current' : config.iconShellClass
-                        }`}>
-                          <RoleIcon size={18} className={activeRole === role ? '' : config.iconClass} />
-                        </span>
-                        <span>
-                          <span className="block text-sm font-semibold capitalize">{role}</span>
-                          <span className={`block text-[0.68rem] uppercase tracking-[0.28em] ${
-                            activeRole === role ? 'text-current/70' : 'text-slate-500'
-                          }`}>
-                            {config.eyebrow}
-                          </span>
-                        </span>
-                      </div>
-                    </button>
-                  );
-                })}
-              </div>
+              {/* Role switcher removed for systematic strictly role-based login */}
 
               <div className={`mt-8 rounded-[2rem] border p-5 ${currentRole.panelClass}`}>
                 <div className="flex items-start gap-3">

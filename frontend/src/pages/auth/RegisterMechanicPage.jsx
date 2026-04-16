@@ -146,16 +146,16 @@ export default function RegisterMechanicPage() {
             {/* Identity & Comms */}
             <div className="grid md:grid-cols-2 gap-8">
               <FormField label="Identity" error={errors.name}>
-                <FieldInput icon={<User size={18} />} value={form.name} onChange={setVal('name')} placeholder="FULL NAME" hasError={!!errors.name} />
+                <FieldInput icon={<User size={18} />} value={form.name} onChange={setVal('name')} placeholder="Full Name" hasError={!!errors.name} />
               </FormField>
               <FormField label="Terminal ID" error={errors.phone}>
-                <FieldInput icon={<Smartphone size={18} />} value={form.phone} onChange={setVal('phone')} placeholder="+91 PORT" hasError={!!errors.phone} />
+                <FieldInput icon={<Smartphone size={18} />} value={form.phone} onChange={setVal('phone')} placeholder="+91 Phone Number" hasError={!!errors.phone} />
               </FormField>
             </div>
 
             <div className="grid md:grid-cols-2 gap-8">
               <FormField label="Grid Channel" error={errors.email}>
-                <FieldInput icon={<Mail size={18} />} type="email" value={form.email} onChange={setVal('email')} placeholder="EMAIL PROTOCOL" hasError={!!errors.email} />
+                <FieldInput icon={<Mail size={18} />} type="email" value={form.email} onChange={setVal('email')} placeholder="Email Address" hasError={!!errors.email} />
               </FormField>
               <FormField label="Security Key" error={errors.password}>
                 <FieldInput icon={<Lock size={18} />} type="password" value={form.password} onChange={setVal('password')} placeholder="••••••" hasError={!!errors.password} />
@@ -163,7 +163,7 @@ export default function RegisterMechanicPage() {
             </div>
 
             <FormField label="Professional Tenure" error={errors.experience}>
-              <FieldInput icon={<Briefcase size={18} />} value={form.experience} onChange={setVal('experience')} placeholder="E.G. 5 YEARS COMBAT/ENGINE" hasError={!!errors.experience} />
+              <FieldInput icon={<Briefcase size={18} />} value={form.experience} onChange={setVal('experience')} placeholder="e.g. 5 years in engine repair" hasError={!!errors.experience} />
             </FormField>
 
             {/* Tactical Skills */}
@@ -194,8 +194,8 @@ export default function RegisterMechanicPage() {
                     <input
                       value={addressQuery}
                       onChange={handleAddressInput}
-                      placeholder="SEARCH DEPLOYMENT ZONE..."
-                      className={`w-full bg-surface-high/50 text-white pl-12 pr-4 py-4 rounded-2xl border border-white/5 focus:border-primary/50 focus:bg-surface-high transition-all font-bold text-xs uppercase tracking-widest ${errors.location ? 'border-red-500/50' : ''}`}
+                      placeholder="Search deployment zone..."
+                      className={`w-full bg-surface-high/50 text-white pl-12 pr-4 py-4 rounded-2xl border border-white/5 focus:border-primary/50 focus:bg-surface-high transition-all font-bold text-xs tracking-widest ${errors.location ? 'border-red-500/50' : ''}`}
                     />
                   </div>
                   <button
@@ -270,7 +270,7 @@ function FieldInput({ icon, hasError, className = '', ...props }) {
         ${hasError ? 'text-red-500' : 'text-slate-600 group-focus-within:text-primary'}`}>{icon}</span>
       <input
         className={`w-full bg-surface-high/40 text-white pl-12 pr-4 py-4 rounded-2xl border transition-all duration-300 font-bold text-sm
-          focus:outline-none focus:bg-surface-high placeholder-slate-600 uppercase tracking-wider
+          focus:outline-none focus:bg-surface-high placeholder-slate-600 tracking-wider
           ${hasError ? 'border-red-500/50 focus:border-red-500' : 'border-white/5 focus:border-primary/50'} ${className}`}
         {...props}
       />

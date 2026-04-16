@@ -5,6 +5,7 @@ let redisClient = null;
 let isReady = false;
 
 const getRedisUrl = () => process.env.REDIS_URL || 'redis://127.0.0.1:6379';
+const shouldRetryConnection = () => process.env.REDIS_RETRY === 'true';
 
 const connectRedis = async () => {
   if (redisClient) return redisClient;
@@ -12,7 +13,10 @@ const connectRedis = async () => {
   redisClient = createClient({
     url: getRedisUrl(),
     socket: {
-      reconnectStrategy: (retries) => Math.min(retries * 200, 3000),
+      reconnectStrategy: (retries) => {
+        if (!shouldRetryConnection()) return false;
+        return Math.min(retries * 200, 3000);
+      },
     },
   });
 

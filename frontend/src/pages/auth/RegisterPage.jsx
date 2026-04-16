@@ -88,18 +88,18 @@ export default function RegisterPage() {
             <div className="grid md:grid-cols-2 gap-6">
               {/* Name */}
               <Field label="Identification" error={errors.name}>
-                <FieldInput icon={<User size={18} />} type="text" value={form.name} onChange={setAddress('name')} placeholder="FULL NAME" hasError={!!errors.name} />
+                <FieldInput icon={<User size={18} />} type="text" value={form.name} onChange={setAddress('name')} placeholder="Full Name" hasError={!!errors.name} />
               </Field>
 
               {/* Email */}
               <Field label="Grid Protocol" error={errors.email}>
-                <FieldInput icon={<Mail size={18} />} type="email" value={form.email} onChange={setAddress('email')} placeholder="EMAIL CHANNEL" hasError={!!errors.email} />
+                <FieldInput icon={<Mail size={18} />} type="email" value={form.email} onChange={setAddress('email')} placeholder="Email Address" hasError={!!errors.email} />
               </Field>
             </div>
 
             {/* Phone */}
             <Field label="Terminal ID" error={errors.phone}>
-              <FieldInput icon={<Phone size={18} />} type="tel" value={form.phone} onChange={setAddress('phone')} placeholder="+91 PORT ID" hasError={!!errors.phone} />
+              <FieldInput icon={<Phone size={18} />} type="tel" value={form.phone} onChange={setAddress('phone')} placeholder="+91 Phone Number" hasError={!!errors.phone} />
             </Field>
 
             <div className="grid md:grid-cols-2 gap-6">
@@ -153,7 +153,7 @@ function FieldInput({ icon, hasError, className = '', ...props }) {
         ${hasError ? 'text-red-500' : 'text-slate-600 group-focus-within:text-primary'}`}>{icon}</span>
       <input
         className={`w-full bg-surface-high/50 text-white pl-12 pr-4 py-4 rounded-2xl border transition-all duration-300 font-bold text-sm
-          focus:outline-none focus:bg-surface-high placeholder-slate-600 uppercase tracking-wider
+          focus:outline-none focus:bg-surface-high placeholder-slate-600 tracking-wider
           ${hasError ? 'border-red-500/50 focus:border-red-500' : 'border-white/5 focus:border-primary/50'} ${className}`}
         {...props}
       />
