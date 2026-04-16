@@ -120,7 +120,7 @@ const LOGIN_REDIRECTS = {
 };
 
 export default function LoginPage({ defaultRole = 'user' }) {
-  const { login } = useAuth();
+  const { login, logout } = useAuth();
   const navigate = useNavigate();
 
   const safeDefaultRole = ROLE_SETTINGS[defaultRole] ? defaultRole : 'user';
@@ -181,6 +181,8 @@ export default function LoginPage({ defaultRole = 'user' }) {
       const resolvedRole = loggedInUser?.role;
 
       if (resolvedRole !== activeRole) {
+        // Clear the session if it's the wrong portal
+        logout();
         toast.error(`Invalid credentials for ${activeRole} portal.`);
         setLoading(false);
         return;
