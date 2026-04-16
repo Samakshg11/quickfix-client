@@ -153,10 +153,10 @@ export default function LandingPage() {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="text-6xl md:text-8xl lg:text-[9rem] font-display font-black leading-[1.1] tracking-tighter italic pb-4"
+              className="text-6xl md:text-8xl lg:text-[9rem] font-display font-black leading-[1.2] tracking-tighter italic"
             >
               Automation <br /> 
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-500 to-indigo-600">Sovereignty</span>
+              <span className="inline-block pb-8 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-500 to-indigo-600">Sovereignty</span>
             </motion.h1>
 
             <motion.p 
@@ -337,8 +337,8 @@ export default function LandingPage() {
         {/* ── Footer Link Section (Support) ────────────────────── */}
         <section id="support" className="px-6 py-24 lg:py-48 text-center bg-gradient-to-b from-transparent to-cyan-500/5">
           <div className="mx-auto max-w-3xl">
-            <h2 className="text-6xl md:text-8xl font-display font-black tracking-tighter italic mb-10">
-              Ready to <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Override?</span>
+            <h2 className="text-6xl md:text-8xl font-display font-black tracking-tighter italic mb-10 leading-[1.2]">
+              Ready to <br /> <span className="inline-block pb-6 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Override?</span>
             </h2>
             <p className="text-slate-400 text-lg mb-14">Get started as a user or initialize your mechanic node today.</p>
             
