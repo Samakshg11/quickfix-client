@@ -19,6 +19,19 @@ import {
 
 import { Button } from '../components/common';
 
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1, delayChildren: 0.08 },
+  },
+};
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 22 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } },
+};
+
 const features = [
   {
     title: 'Verified Mechanics',
@@ -310,14 +323,17 @@ export default function LandingPage() {
               </h2>
             </div>
 
-            <div className="grid gap-6 lg:grid-cols-3">
-              {features.map((feature, index) => (
+            <motion.div
+              className="grid gap-6 lg:grid-cols-3"
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.2 }}
+            >
+              {features.map((feature) => (
                 <motion.div
                   key={feature.title}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.08 }}
+                  variants={fadeUp}
                   className="group rounded-[2rem] border border-white/10 bg-white/[0.03] p-7 transition-all hover:border-cyan-500/35"
                 >
                   <div
@@ -338,7 +354,7 @@ export default function LandingPage() {
                   </div>
                 </motion.div>
               ))}
-            </div>
+            </motion.div>
           </div>
         </section>
 
@@ -349,14 +365,17 @@ export default function LandingPage() {
               <h2 className="mt-5 text-4xl font-display font-black tracking-tight md:text-5xl">A cleaner experience from request to resolution.</h2>
             </div>
 
-            <div className="grid gap-5 md:grid-cols-3">
+            <motion.div
+              className="grid gap-5 md:grid-cols-3"
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.2 }}
+            >
               {serviceSteps.map((step, index) => (
                 <motion.div
                   key={step.title}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
+                  variants={fadeUp}
                   className="relative overflow-hidden rounded-[1.8rem] border border-white/10 bg-black/40 p-6"
                 >
                   <div className="mb-5 flex items-center justify-between">
@@ -369,7 +388,7 @@ export default function LandingPage() {
                   <p className="mt-3 text-sm leading-7 text-slate-300">{step.detail}</p>
                 </motion.div>
               ))}
-            </div>
+            </motion.div>
           </div>
         </section>
 
@@ -379,14 +398,17 @@ export default function LandingPage() {
             <p className="mt-5 text-lg text-slate-300">Every stakeholder gets the right interface without losing shared visibility.</p>
           </div>
 
-          <div className="mx-auto max-w-7xl space-y-4">
-            {platforms.map((node, i) => (
+          <motion.div
+            className="mx-auto max-w-7xl space-y-4"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.15 }}
+          >
+            {platforms.map((node) => (
               <motion.div
                 key={node.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.08 }}
+                variants={fadeUp}
                 className="group flex flex-col justify-between rounded-[1.8rem] border border-white/10 bg-white/[0.03] p-7 transition-all hover:border-cyan-500/30 md:flex-row md:items-center"
               >
                 <div className="flex items-center gap-5">
@@ -404,7 +426,7 @@ export default function LandingPage() {
                 </button>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </section>
 
         <section className="px-6 py-20">
@@ -419,17 +441,23 @@ export default function LandingPage() {
               </p>
             </div>
 
-            <div className="grid gap-4 md:grid-cols-3">
+            <motion.div
+              className="grid gap-4 md:grid-cols-3"
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.2 }}
+            >
               {serviceStandards.map((standard) => (
-                <div key={standard.title} className="rounded-2xl border border-white/10 bg-black/35 p-5">
+                <motion.div key={standard.title} variants={fadeUp} className="rounded-2xl border border-white/10 bg-black/35 p-5">
                   <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl border border-cyan-500/25 bg-cyan-500/10 text-cyan-300">
                     <standard.icon size={18} />
                   </div>
                   <h3 className="font-display text-xl font-bold">{standard.title}</h3>
                   <p className="mt-2 text-sm leading-7 text-slate-300">{standard.detail}</p>
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           </div>
         </section>
 
