@@ -107,6 +107,12 @@ const trustPoints = [
   'Support for emergency and scheduled bookings',
 ];
 
+const serviceStandards = [
+  { title: 'Verified Profiles', detail: 'Identity and skill checks before activation.', icon: ShieldCheck },
+  { title: 'Live ETA Tracking', detail: 'Continuous updates from acceptance to arrival.', icon: MapPinned },
+  { title: 'Priority Support', detail: 'Escalation support for active emergency requests.', icon: Headphones },
+];
+
 export default function LandingPage() {
   const [openFaq, setOpenFaq] = useState(0);
 
@@ -386,6 +392,32 @@ export default function LandingPage() {
                 </button>
               </motion.div>
             ))}
+          </div>
+        </section>
+
+        <section className="px-6 py-20">
+          <div className="mx-auto max-w-7xl rounded-[2rem] border border-white/10 bg-gradient-to-r from-white/[0.03] via-cyan-500/[0.08] to-white/[0.03] p-8 md:p-10">
+            <div className="mb-8 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-[0.32em] text-cyan-300">Service Standards</p>
+                <h2 className="mt-4 text-3xl font-display font-black tracking-tight md:text-4xl">Designed for consistent, premium support quality.</h2>
+              </div>
+              <p className="max-w-md text-sm leading-7 text-slate-300">
+                QuickFix enforces baseline standards for every booking so drivers get dependable help, not guesswork.
+              </p>
+            </div>
+
+            <div className="grid gap-4 md:grid-cols-3">
+              {serviceStandards.map((standard) => (
+                <div key={standard.title} className="rounded-2xl border border-white/10 bg-black/35 p-5">
+                  <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl border border-cyan-500/25 bg-cyan-500/10 text-cyan-300">
+                    <standard.icon size={18} />
+                  </div>
+                  <h3 className="font-display text-xl font-bold">{standard.title}</h3>
+                  <p className="mt-2 text-sm leading-7 text-slate-300">{standard.detail}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
