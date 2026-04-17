@@ -107,6 +107,8 @@ const trustPoints = [
   'Support for emergency and scheduled bookings',
 ];
 
+const serviceCategories = ['Flat Tyre', 'Battery Jumpstart', 'Engine Overheat', 'Brake Failure', 'Fuel Delivery', 'On-site Inspection'];
+
 const serviceStandards = [
   { title: 'Verified Profiles', detail: 'Identity and skill checks before activation.', icon: ShieldCheck },
   { title: 'Live ETA Tracking', detail: 'Continuous updates from acceptance to arrival.', icon: MapPinned },
@@ -209,6 +211,17 @@ export default function LandingPage() {
                 QuickFix connects drivers with verified mechanics through a live dispatch system built for emergency reliability,
                 transparent updates, and trusted service quality.
               </motion.p>
+
+              <div className="mt-6 flex flex-wrap gap-2">
+                {serviceCategories.map((category) => (
+                  <span
+                    key={category}
+                    className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-xs font-semibold tracking-wide text-slate-300"
+                  >
+                    {category}
+                  </span>
+                ))}
+              </div>
 
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
