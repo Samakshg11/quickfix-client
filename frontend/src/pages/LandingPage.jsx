@@ -214,6 +214,12 @@ export default function LandingPage() {
                   you can trust
                 </span>
               </motion.h1>
+              <motion.div
+                initial={{ width: 0, opacity: 0 }}
+                animate={{ width: 160, opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.32 }}
+                className="mt-6 h-[3px] rounded-full bg-gradient-to-r from-cyan-400 to-blue-500"
+              />
 
               <motion.p
                 initial={{ opacity: 0, y: 24 }}
@@ -228,7 +234,7 @@ export default function LandingPage() {
                 {serviceCategories.map((category) => (
                   <span
                     key={category}
-                    className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-xs font-semibold tracking-wide text-slate-300"
+                    className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-xs font-semibold tracking-wide text-slate-300 transition-colors duration-300 hover:border-cyan-400/50 hover:bg-cyan-500/10"
                   >
                     {category}
                   </span>
@@ -268,13 +274,18 @@ export default function LandingPage() {
               </div>
             </div>
 
-            <motion.div
-              initial={{ opacity: 0, x: 40 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.15 }}
-              className="relative"
-            >
-              <div className="glass relative overflow-hidden rounded-[2.6rem] border border-white/15 p-8">
+              <motion.div
+                initial={{ opacity: 0, x: 40 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.15 }}
+                whileHover={{ y: -4 }}
+                className="relative"
+              >
+              <motion.div
+                animate={{ y: [0, -6, 0] }}
+                transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+                className="glass relative overflow-hidden rounded-[2.6rem] border border-white/15 p-8"
+              >
                 <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-transparent to-indigo-500/10" />
                 <div className="relative">
                   <div className="mb-7 flex items-center justify-between">
@@ -309,7 +320,7 @@ export default function LandingPage() {
                     <p className="mt-1 text-cyan-100/80">Your request gets routed using proximity, skill, and availability confidence.</p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             </motion.div>
           </div>
         </section>
@@ -334,6 +345,7 @@ export default function LandingPage() {
                 <motion.div
                   key={feature.title}
                   variants={fadeUp}
+                  whileHover={{ y: -6, transition: { duration: 0.2 } }}
                   className="group rounded-[2rem] border border-white/10 bg-white/[0.03] p-7 transition-all hover:border-cyan-500/35"
                 >
                   <div
@@ -376,6 +388,7 @@ export default function LandingPage() {
                 <motion.div
                   key={step.title}
                   variants={fadeUp}
+                  whileHover={{ y: -5, transition: { duration: 0.2 } }}
                   className="relative overflow-hidden rounded-[1.8rem] border border-white/10 bg-black/40 p-6"
                 >
                   <div className="mb-5 flex items-center justify-between">
@@ -449,7 +462,12 @@ export default function LandingPage() {
               viewport={{ once: true, amount: 0.2 }}
             >
               {serviceStandards.map((standard) => (
-                <motion.div key={standard.title} variants={fadeUp} className="rounded-2xl border border-white/10 bg-black/35 p-5">
+                <motion.div
+                  key={standard.title}
+                  variants={fadeUp}
+                  whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                  className="rounded-2xl border border-white/10 bg-black/35 p-5"
+                >
                   <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl border border-cyan-500/25 bg-cyan-500/10 text-cyan-300">
                     <standard.icon size={18} />
                   </div>
