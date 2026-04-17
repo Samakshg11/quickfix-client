@@ -7,11 +7,8 @@ import {
   Zap,
   Globe,
   ChevronDown,
-  CheckCircle2,
   Wrench,
-  Sparkles,
   Search,
-  BadgeCheck,
   Car,
   Headphones,
   MapPinned,
@@ -54,12 +51,6 @@ const features = [
     accent: 'purple',
     learnMoreTarget: 'nodes',
   },
-];
-
-const stats = [
-  { label: 'Cities Covered', value: '120+', progress: 78, color: 'from-cyan-500 to-blue-500' },
-  { label: 'Average Dispatch Time', value: '11 min', progress: 88, color: 'from-indigo-500 to-purple-500' },
-  { label: 'Monthly Service Requests', value: '48k+', progress: 84, color: 'from-emerald-500 to-cyan-500' },
 ];
 
 const serviceSteps = [
@@ -115,15 +106,6 @@ const faqs = [
     a: 'Yes. You can request both urgent roadside help and planned vehicle service appointments from the same platform.',
   },
 ];
-
-const trustPoints = [
-  'Live status updates from request to completion',
-  'Verified mechanics and service quality checks',
-  'Coverage across expanding city clusters',
-  'Support for emergency and scheduled bookings',
-];
-
-const serviceCategories = ['Flat Tyre', 'Battery Jumpstart', 'Engine Overheat', 'Brake Failure', 'Fuel Delivery', 'On-site Inspection'];
 
 const serviceStandards = [
   { title: 'Verified Profiles', detail: 'Identity and skill checks before activation.', icon: ShieldCheck },
@@ -199,138 +181,16 @@ export default function LandingPage() {
       </header>
 
       <main className="relative z-10 font-sans">
-        <section className="px-6 pb-24 pt-16 lg:pb-36 lg:pt-24">
-          <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
-            <div>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="mb-8 inline-flex items-center gap-3 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-5 py-2"
-              >
-                <BadgeCheck size={16} className="text-cyan-300" />
-                <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-cyan-300">Roadside Network, Reinvented</span>
-              </motion.div>
-
-              <motion.h1
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.75 }}
-                className="text-5xl font-display font-black leading-[0.95] tracking-tight md:text-7xl lg:text-[5.2rem]"
-              >
-                Roadside Help
-                <br />
-                <span className="bg-gradient-to-r from-cyan-300 to-blue-400 bg-clip-text text-transparent">
-                  you can trust
-                </span>
-              </motion.h1>
-              <motion.div
-                initial={{ width: 0, opacity: 0 }}
-                animate={{ width: 160, opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.32 }}
-                className="mt-6 h-[3px] rounded-full bg-gradient-to-r from-cyan-400 to-blue-500"
-              />
-
-              <motion.p
-                initial={{ opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.75, delay: 0.2 }}
-                className="mt-8 max-w-2xl text-lg leading-8 text-slate-300"
-              >
-                QuickFix connects you with verified mechanics in minutes, with real-time status updates from request to resolution.
-              </motion.p>
-
-              <div className="mt-6 flex flex-wrap gap-2">
-                {serviceCategories.map((category) => (
-                  <span
-                    key={category}
-                    className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-xs font-semibold tracking-wide text-slate-300 transition-colors duration-300 hover:border-cyan-400/50 hover:bg-cyan-500/10"
-                  >
-                    {category}
-                  </span>
-                ))}
-              </div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.28 }}
-                className="mt-10 flex flex-col gap-4 sm:flex-row"
-              >
-                <Link to="/register">
-                  <Button size="lg" variant="cyber" className="h-14 rounded-2xl px-10 text-xs font-black uppercase tracking-[0.2em]">
-                    Request Help
-                    <ArrowRight size={18} className="ml-2" />
-                  </Button>
-                </Link>
-                <Link to="/login">
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    className="h-14 rounded-2xl border-white/20 bg-white/5 px-9 text-xs font-black uppercase tracking-[0.2em]"
-                  >
-                    Mechanic Sign In
-                  </Button>
-                </Link>
-              </motion.div>
-
-              <div className="mt-10 grid gap-3 sm:grid-cols-2">
-                {trustPoints.map((point) => (
-                  <div key={point} className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-slate-300">
-                    <CheckCircle2 size={16} className="shrink-0 text-cyan-400" />
-                    <span>{point}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-              <motion.div
-                initial={{ opacity: 0, x: 40 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: 0.15 }}
-                whileHover={{ y: -4 }}
-                className="relative"
-              >
-              <motion.div
-                animate={{ y: [0, -6, 0] }}
-                transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-                className="glass relative overflow-hidden rounded-[2.6rem] border border-white/15 p-8"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-transparent to-indigo-500/10" />
-                <div className="relative">
-                  <div className="mb-7 flex items-center justify-between">
-                    <div>
-                      <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-cyan-300">Service Performance</p>
-                      <p className="mt-2 text-2xl font-display font-bold">Live Network Snapshot</p>
-                    </div>
-                    <Sparkles size={20} className="text-cyan-400" />
-                  </div>
-
-                  <div className="space-y-4">
-                    {stats.map((stat, index) => (
-                      <div key={stat.label} className="rounded-2xl border border-white/10 bg-black/35 p-4">
-                        <div className="mb-2 flex items-center justify-between">
-                          <span className="text-xs uppercase tracking-[0.17em] text-slate-400">{stat.label}</span>
-                          <span className="text-xl font-display font-bold text-white">{stat.value}</span>
-                        </div>
-                        <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/10">
-                          <motion.div
-                            initial={{ width: 0 }}
-                            animate={{ width: `${stat.progress}%` }}
-                            transition={{ duration: 1.1, delay: index * 0.15 + 0.2 }}
-                            className={`h-full bg-gradient-to-r ${stat.color}`}
-                          />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="mt-6 rounded-2xl border border-cyan-500/25 bg-cyan-500/10 px-4 py-3 text-sm text-cyan-100">
-                    <p className="font-semibold">Premium response protocol enabled</p>
-                    <p className="mt-1 text-cyan-100/80">Your request gets routed using proximity, skill, and availability confidence.</p>
-                  </div>
-                </div>
-              </motion.div>
-            </motion.div>
+        <section className="px-6 pb-20 pt-20 lg:pb-28 lg:pt-28">
+          <div className="mx-auto max-w-7xl text-center">
+            <motion.h1
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.75 }}
+              className="text-7xl font-display font-black leading-[0.9] tracking-tight md:text-8xl lg:text-[8.5rem]"
+            >
+              QUICKFIX
+            </motion.h1>
           </div>
         </section>
 
