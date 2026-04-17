@@ -193,12 +193,12 @@ export default function LandingPage() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.75 }}
-                className="text-5xl font-display font-black leading-[0.95] tracking-tight md:text-7xl lg:text-[5.5rem]"
+                className="text-5xl font-display font-black leading-[0.95] tracking-tight md:text-7xl lg:text-[5.2rem]"
               >
-                Premium Assistance
+                Roadside Help
                 <br />
-                <span className="text-transparent bg-gradient-to-r from-cyan-300 via-blue-400 to-indigo-400 bg-clip-text">
-                  when your vehicle needs it most
+                <span className="bg-gradient-to-r from-cyan-300 to-blue-400 bg-clip-text text-transparent">
+                  you can trust
                 </span>
               </motion.h1>
 
@@ -208,8 +208,7 @@ export default function LandingPage() {
                 transition={{ duration: 0.75, delay: 0.2 }}
                 className="mt-8 max-w-2xl text-lg leading-8 text-slate-300"
               >
-                QuickFix connects drivers with verified mechanics through a live dispatch system built for emergency reliability,
-                transparent updates, and trusted service quality.
+                QuickFix connects you with verified mechanics in minutes, with real-time status updates from request to resolution.
               </motion.p>
 
               <div className="mt-6 flex flex-wrap gap-2">
