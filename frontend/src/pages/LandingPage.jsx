@@ -38,18 +38,21 @@ const features = [
     description: 'Every mechanic is identity-checked, skill-verified, and continuously rated by completed jobs.',
     icon: ShieldCheck,
     accent: 'emerald',
+    learnMoreTarget: 'service-standards',
   },
   {
     title: 'Fast Emergency Dispatch',
     description: 'Roadside assistance requests are matched to available professionals in your active service zone.',
     icon: Zap,
     accent: 'cyan',
+    learnMoreTarget: 'infrastructure',
   },
   {
     title: 'Transparent Job Tracking',
     description: 'Track acceptance, ETA, live progress, and completion updates from one clean timeline.',
     icon: Search,
     accent: 'purple',
+    learnMoreTarget: 'nodes',
   },
 ];
 
@@ -130,6 +133,12 @@ const serviceStandards = [
 
 export default function LandingPage() {
   const [openFaq, setOpenFaq] = useState(0);
+  const scrollToSection = (id) => {
+    const section = document.getElementById(id);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
   return (
     <div className="relative min-h-screen overflow-x-hidden bg-[#030712] text-white selection:bg-cyan-500/30">
@@ -361,9 +370,13 @@ export default function LandingPage() {
                   </div>
                   <h3 className="text-2xl font-display font-bold">{feature.title}</h3>
                   <p className="mt-4 text-sm leading-7 text-slate-300">{feature.description}</p>
-                  <div className="mt-7 flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-cyan-400 opacity-0 transition-opacity group-hover:opacity-100">
+                  <button
+                    type="button"
+                    onClick={() => scrollToSection(feature.learnMoreTarget)}
+                    className="mt-7 flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-cyan-400 opacity-0 transition-opacity group-hover:opacity-100 hover:text-cyan-300"
+                  >
                     Learn More <ArrowRight size={14} />
-                  </div>
+                  </button>
                 </motion.div>
               ))}
             </motion.div>
@@ -442,7 +455,7 @@ export default function LandingPage() {
           </motion.div>
         </section>
 
-        <section className="px-6 py-20">
+        <section id="service-standards" className="px-6 py-20">
           <div className="mx-auto max-w-7xl rounded-[2rem] border border-white/10 bg-gradient-to-r from-white/[0.03] via-cyan-500/[0.08] to-white/[0.03] p-8 md:p-10">
             <div className="mb-8 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
               <div>
