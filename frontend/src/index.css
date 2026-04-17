@@ -4,6 +4,12 @@
 
 @layer base {
 
+  :root {
+    --quickfix-bg: #030712;
+    --quickfix-text: #f8fafc;
+    --quickfix-muted: #94a3b8;
+  }
+
   *,
   *::before,
   *::after {
@@ -16,8 +22,10 @@
   }
 
   body {
-    @apply bg-[#030712] text-white antialiased;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    @apply antialiased;
+    background-color: var(--quickfix-bg);
+    color: var(--quickfix-text);
+    font-family: 'Manrope', 'Avenir Next', 'Segoe UI', sans-serif;
     overflow-x: hidden;
   }
 
