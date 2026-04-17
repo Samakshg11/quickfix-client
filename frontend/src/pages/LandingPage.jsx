@@ -1,135 +1,167 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import {
   ArrowRight,
   ShieldCheck,
   Zap,
-  Cpu,
   Globe,
-  MessageSquare,
   ChevronDown,
-  Clock3,
   CheckCircle2,
   Wrench,
   Sparkles,
   Search,
+  BadgeCheck,
+  Car,
+  Headphones,
+  MapPinned,
 } from 'lucide-react';
 
 import { Button } from '../components/common';
 
-const container = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1, delayChildren: 0.1 },
+const features = [
+  {
+    title: 'Verified Mechanics',
+    description: 'Every mechanic is identity-checked, skill-verified, and continuously rated by completed jobs.',
+    icon: ShieldCheck,
+    accent: 'emerald',
   },
-};
+  {
+    title: 'Fast Emergency Dispatch',
+    description: 'Roadside assistance requests are matched to available professionals in your active service zone.',
+    icon: Zap,
+    accent: 'cyan',
+  },
+  {
+    title: 'Transparent Job Tracking',
+    description: 'Track acceptance, ETA, live progress, and completion updates from one clean timeline.',
+    icon: Search,
+    accent: 'purple',
+  },
+];
 
-const item = {
-  hidden: { opacity: 0, y: 30 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.23, 1, 0.32, 1] } },
-};
+const stats = [
+  { label: 'Cities Covered', value: '120+', progress: 78, color: 'from-cyan-500 to-blue-500' },
+  { label: 'Average Dispatch Time', value: '11 min', progress: 88, color: 'from-indigo-500 to-purple-500' },
+  { label: 'Monthly Service Requests', value: '48k+', progress: 84, color: 'from-emerald-500 to-cyan-500' },
+];
+
+const serviceSteps = [
+  {
+    title: 'Share Your Issue',
+    detail: 'Tell us your problem, location, and vehicle details in less than a minute.',
+    icon: Car,
+  },
+  {
+    title: 'Matched in Real Time',
+    detail: 'The nearest eligible mechanic receives your request and confirms availability.',
+    icon: MapPinned,
+  },
+  {
+    title: 'On-Site Support',
+    detail: 'Get updates until the mechanic arrives, resolves the issue, and closes the job.',
+    icon: Headphones,
+  },
+];
+
+const platforms = [
+  {
+    title: 'Driver Console',
+    role: 'Request and track assistance',
+    text: 'Built for speed, clarity, and emergency-first actions with location-aware dispatch.',
+    icon: Car,
+  },
+  {
+    title: 'Mechanic Workspace',
+    role: 'Jobs, ETAs, and performance',
+    text: 'A focused dashboard for incoming bookings, route updates, and completion quality.',
+    icon: Wrench,
+  },
+  {
+    title: 'Admin Control Center',
+    role: 'Approvals, oversight, analytics',
+    text: 'Maintain network quality through onboarding checks, fraud controls, and SLA reporting.',
+    icon: Globe,
+  },
+];
+
+const faqs = [
+  {
+    q: 'How fast can QuickFix respond?',
+    a: 'Response time depends on location and traffic, but most urban bookings are accepted within minutes with live ETA updates.',
+  },
+  {
+    q: 'Are mechanics background verified?',
+    a: 'Yes. Mechanics go through profile checks, experience screening, and ongoing quality review based on completed jobs.',
+  },
+  {
+    q: 'Can I book non-emergency services?',
+    a: 'Yes. You can request both urgent roadside help and planned vehicle service appointments from the same platform.',
+  },
+];
+
+const trustPoints = [
+  'Live status updates from request to completion',
+  'Verified mechanics and service quality checks',
+  'Coverage across expanding city clusters',
+  'Support for emergency and scheduled bookings',
+];
 
 export default function LandingPage() {
   const [openFaq, setOpenFaq] = useState(0);
 
-  const stats = [
-    { label: 'Active Mechanics', value: '18k+', progress: 85, color: 'from-cyan-500 to-blue-500' },
-    { label: 'Success Rate', value: '99.2%', progress: 99, color: 'from-purple-500 to-pink-500' },
-    { label: 'Services Handled', value: '2.4m', progress: 70, color: 'from-emerald-500 to-cyan-500' },
-  ];
-
-  const features = [
-    {
-      title: 'Trained Mechanics',
-      description: 'Search nearby specialists, place requests fast, and follow progress through our encrypted node network.',
-      icon: Wrench,
-      accent: 'cyan',
-    },
-    {
-      title: 'Critical Assistance',
-      description: 'Emergency protocols for roadside failures. Dispatch within minutes through geographic load balancing.',
-      icon: Zap,
-      accent: 'purple',
-    },
-    {
-      title: 'Verifiable Masters',
-      description: 'Only approved masters enter the grid. Verified tenure, skills, and background-vetted reliability.',
-      icon: ShieldCheck,
-      accent: 'emerald',
-    },
-  ];
-
-  const platforms = [
-    {
-      title: 'User Interface',
-      role: 'Master Command',
-      text: 'Unified portal for requesting and tracking status updates in real-time.',
-      icon: Cpu,
-    },
-    {
-      title: 'Mechanic Node',
-      role: 'Operational Hub',
-      text: 'Dedicated workspace for active jobs, routes, and performance benchmarks.',
-      icon: Wrench,
-    },
-    {
-      title: 'Central Registry',
-      role: 'Admin Core',
-      text: 'High-level oversight, approval workflows, and infrastructure maintenance.',
-      icon: Globe,
-    },
-  ];
-
   return (
-    <div className="relative min-h-screen bg-[#030712] text-white selection:bg-cyan-500/30 overflow-x-hidden">
-      {/* ── Background Infrastructure ────────────────────────────── */}
-      <div className="fixed inset-0 pointer-events-none z-0">
+    <div className="relative min-h-screen overflow-x-hidden bg-[#030712] text-white selection:bg-cyan-500/30">
+      <div className="pointer-events-none fixed inset-0 z-0">
         <div className="absolute inset-0 cyber-grid opacity-[0.05]" />
         <div className="absolute inset-0 carbon-overlay opacity-[0.03]" />
-        
-        {/* Animated Orbs */}
+
         <motion.div
-          animate={{ x: [-100, 100, -100], y: [-50, 50, -50] }}
-          transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
-          className="orb top-[-10%] left-[-10%] w-[500px] h-[500px] bg-cyan-500/20"
+          animate={{ x: [-90, 110, -90], y: [-40, 55, -40] }}
+          transition={{ duration: 21, repeat: Infinity, ease: 'easeInOut' }}
+          className="orb left-[-10%] top-[-10%] h-[480px] w-[480px] bg-cyan-500/20"
         />
         <motion.div
-          animate={{ x: [100, -100, 100], y: [50, -50, 50] }}
-          transition={{ duration: 25, repeat: Infinity, ease: 'easeInOut' }}
-          className="orb bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-purple-500/20"
+          animate={{ x: [90, -90, 90], y: [40, -40, 40] }}
+          transition={{ duration: 27, repeat: Infinity, ease: 'easeInOut' }}
+          className="orb bottom-[-10%] right-[-10%] h-[560px] w-[560px] bg-indigo-500/20"
         />
       </div>
 
-      {/* ── Navigation ────────────────────────────── */}
-      <header className="sticky top-0 z-50 border-b border-white/5 bg-[#030712]/70 backdrop-blur-2xl">
+      <header className="sticky top-0 z-50 border-b border-white/5 bg-[#030712]/75 backdrop-blur-2xl">
         <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
-          <Link to="/" className="flex items-center gap-4 group">
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-cyan-500/30 bg-cyan-500/10 transition-all group-hover:neon-glow-cyan group-hover:scale-110">
+          <Link to="/" className="group flex items-center gap-4">
+            <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-cyan-500/30 bg-cyan-500/10 transition-all group-hover:scale-110 group-hover:neon-glow-cyan">
               <Zap size={22} className="text-cyan-400" />
             </div>
             <div className="flex flex-col">
               <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-slate-500">QuickFix Network</span>
-              <span className="text-xl font-display font-black tracking-tighter text-white">QUICKFIX</span>
+              <span className="text-xl font-display font-black tracking-tight text-white">QUICKFIX</span>
             </div>
           </Link>
 
-          <nav className="hidden lg:flex items-center gap-10">
+          <nav className="hidden items-center gap-9 lg:flex">
             {['Infrastructure', 'Nodes', 'Protocols', 'Support'].map((nav) => (
-              <a key={nav} href={`#${nav.toLowerCase()}`} className="text-xs font-bold uppercase tracking-widest text-slate-400 transition-colors hover:text-cyan-400">
+              <a
+                key={nav}
+                href={`#${nav.toLowerCase()}`}
+                className="text-xs font-bold uppercase tracking-widest text-slate-400 transition-colors hover:text-cyan-400"
+              >
                 {nav}
               </a>
             ))}
           </nav>
 
           <div className="flex items-center gap-4">
-            <Link to="/login" className="hidden sm:block text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-white transition-colors">
-              Log Input
+            <Link
+              to="/login"
+              className="hidden text-xs font-bold uppercase tracking-widest text-slate-400 transition-colors hover:text-white sm:block"
+            >
+              Sign In
             </Link>
             <Link to="/register">
-              <Button size="sm" variant="cyber" className="rounded-xl px-6 font-black tracking-widest text-[10px] uppercase">
-                Initialize
+              <Button size="sm" variant="cyber" className="rounded-xl px-6 font-black text-[10px] uppercase tracking-widest">
+                Get Started
               </Button>
             </Link>
           </div>
@@ -137,78 +169,154 @@ export default function LandingPage() {
       </header>
 
       <main className="relative z-10 font-sans">
-        {/* ── Hero Section ────────────────────────────── */}
-        <section className="relative px-6 pt-20 pb-32 lg:pt-32 lg:pb-48">
-          <div className="mx-auto max-w-7xl text-center">
+        <section className="px-6 pb-24 pt-16 lg:pb-36 lg:pt-24">
+          <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
+            <div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mb-8 inline-flex items-center gap-3 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-5 py-2"
+              >
+                <BadgeCheck size={16} className="text-cyan-300" />
+                <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-cyan-300">Roadside Network, Reinvented</span>
+              </motion.div>
+
+              <motion.h1
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.75 }}
+                className="text-5xl font-display font-black leading-[0.95] tracking-tight md:text-7xl lg:text-[5.5rem]"
+              >
+                Premium Assistance
+                <br />
+                <span className="text-transparent bg-gradient-to-r from-cyan-300 via-blue-400 to-indigo-400 bg-clip-text">
+                  when your vehicle needs it most
+                </span>
+              </motion.h1>
+
+              <motion.p
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.75, delay: 0.2 }}
+                className="mt-8 max-w-2xl text-lg leading-8 text-slate-300"
+              >
+                QuickFix connects drivers with verified mechanics through a live dispatch system built for emergency reliability,
+                transparent updates, and trusted service quality.
+              </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.28 }}
+                className="mt-10 flex flex-col gap-4 sm:flex-row"
+              >
+                <Link to="/register">
+                  <Button size="lg" variant="cyber" className="h-14 rounded-2xl px-10 text-xs font-black uppercase tracking-[0.2em]">
+                    Request Help
+                    <ArrowRight size={18} className="ml-2" />
+                  </Button>
+                </Link>
+                <Link to="/login">
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    className="h-14 rounded-2xl border-white/20 bg-white/5 px-9 text-xs font-black uppercase tracking-[0.2em]"
+                  >
+                    Mechanic Sign In
+                  </Button>
+                </Link>
+              </motion.div>
+
+              <div className="mt-10 grid gap-3 sm:grid-cols-2">
+                {trustPoints.map((point) => (
+                  <div key={point} className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-slate-300">
+                    <CheckCircle2 size={16} className="shrink-0 text-cyan-400" />
+                    <span>{point}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="inline-flex items-center gap-3 rounded-full border border-cyan-500/20 bg-cyan-500/5 px-5 py-2 mb-10"
+              initial={{ opacity: 0, x: 40 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.15 }}
+              className="relative"
             >
-              <div className="h-2 w-2 rounded-full bg-cyan-400 animate-pulse" />
-              <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-cyan-300">System Protocol Active</span>
-            </motion.div>
+              <div className="glass relative overflow-hidden rounded-[2.6rem] border border-white/15 p-8">
+                <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-transparent to-indigo-500/10" />
+                <div className="relative">
+                  <div className="mb-7 flex items-center justify-between">
+                    <div>
+                      <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-cyan-300">Service Performance</p>
+                      <p className="mt-2 text-2xl font-display font-bold">Live Network Snapshot</p>
+                    </div>
+                    <Sparkles size={20} className="text-cyan-400" />
+                  </div>
 
-            <motion.h1 
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="text-6xl md:text-8xl lg:text-[9rem] font-display font-black tracking-tighter italic overflow-visible"
-            >
-              Automation <br /> 
-              <span className="inline-block py-6 px-4 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-500 to-indigo-600 leading-[1.3]">Sovereignty</span>
-            </motion.h1>
+                  <div className="space-y-4">
+                    {stats.map((stat, index) => (
+                      <div key={stat.label} className="rounded-2xl border border-white/10 bg-black/35 p-4">
+                        <div className="mb-2 flex items-center justify-between">
+                          <span className="text-xs uppercase tracking-[0.17em] text-slate-400">{stat.label}</span>
+                          <span className="text-xl font-display font-bold text-white">{stat.value}</span>
+                        </div>
+                        <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/10">
+                          <motion.div
+                            initial={{ width: 0 }}
+                            animate={{ width: `${stat.progress}%` }}
+                            transition={{ duration: 1.1, delay: index * 0.15 + 0.2 }}
+                            className={`h-full bg-gradient-to-r ${stat.color}`}
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
 
-            <motion.p 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="mt-12 mx-auto max-w-2xl text-lg leading-8 text-slate-400 md:text-xl font-medium"
-            >
-              Premium roadside support, designed with cleaner operations and stronger trust through our decentralized mechanic network.
-            </motion.p>
-
-            <motion.div 
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              className="mt-14 flex flex-col justify-center gap-5 sm:flex-row"
-            >
-              <Link to="/register">
-                <Button size="lg" variant="cyber" className="h-16 px-10 rounded-full font-black uppercase tracking-[0.2em] text-xs">
-                  Initiate Connection
-                  <ArrowRight size={18} className="ml-2" />
-                </Button>
-              </Link>
+                  <div className="mt-6 rounded-2xl border border-cyan-500/25 bg-cyan-500/10 px-4 py-3 text-sm text-cyan-100">
+                    <p className="font-semibold">Premium response protocol enabled</p>
+                    <p className="mt-1 text-cyan-100/80">Your request gets routed using proximity, skill, and availability confidence.</p>
+                  </div>
+                </div>
+              </div>
             </motion.div>
           </div>
         </section>
 
-        {/* ── Feature Cards (Protocols) ────────────────────────── */}
-        <section id="protocols" className="px-6 py-24 bg-white/[0.02] border-y border-white/5">
+        <section id="protocols" className="border-y border-white/5 bg-white/[0.02] px-6 py-24">
           <div className="mx-auto max-w-7xl">
-            <div className="grid gap-8 lg:grid-cols-3">
-              {features.map((feature, i) => (
+            <div className="mb-12 max-w-3xl">
+              <p className="text-[10px] font-bold uppercase tracking-[0.32em] text-cyan-300">Why QuickFix</p>
+              <h2 className="mt-5 text-4xl font-display font-black tracking-tight md:text-5xl">
+                Built for trust, speed, and better roadside outcomes.
+              </h2>
+            </div>
+
+            <div className="grid gap-6 lg:grid-cols-3">
+              {features.map((feature, index) => (
                 <motion.div
                   key={feature.title}
-                  initial={{ opacity: 0, y: 30 }}
+                  initial={{ opacity: 0, y: 24 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                  className="group relative p-8 rounded-[2.5rem] bg-white/[0.03] border border-white/5 hover:border-cyan-500/30 transition-all active:scale-95"
+                  transition={{ delay: index * 0.08 }}
+                  className="group rounded-[2rem] border border-white/10 bg-white/[0.03] p-7 transition-all hover:border-cyan-500/35"
                 >
-                  <div className={`mb-8 flex h-16 w-16 items-center justify-center rounded-2xl border bg-black/40 text-cyan-400 ${
-                    feature.accent === 'cyan' ? 'border-cyan-500/20' : 
-                    feature.accent === 'purple' ? 'border-purple-500/20 text-purple-400' : 
-                    'border-emerald-500/20 text-emerald-400'
-                  }`}>
-                    <feature.icon size={28} />
+                  <div
+                    className={`mb-6 flex h-14 w-14 items-center justify-center rounded-2xl border bg-black/40 ${
+                      feature.accent === 'cyan'
+                        ? 'border-cyan-500/25 text-cyan-400'
+                        : feature.accent === 'purple'
+                        ? 'border-purple-500/25 text-purple-400'
+                        : 'border-emerald-500/25 text-emerald-400'
+                    }`}
+                  >
+                    <feature.icon size={24} />
                   </div>
-                  <h3 className="text-2xl font-display font-bold mb-4">{feature.title}</h3>
-                  <p className="text-slate-400 leading-7 text-sm">{feature.description}</p>
-                  
-                  <div className="mt-8 flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity">
-                    Access Node <ArrowRight size={14} />
+                  <h3 className="text-2xl font-display font-bold">{feature.title}</h3>
+                  <p className="mt-4 text-sm leading-7 text-slate-300">{feature.description}</p>
+                  <div className="mt-7 flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-cyan-400 opacity-0 transition-opacity group-hover:opacity-100">
+                    Learn More <ArrowRight size={14} />
                   </div>
                 </motion.div>
               ))}
@@ -216,141 +324,129 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* ── Environment Visual (Infrastructure) ────────────────── */}
-        <section id="infrastructure" className="px-6 py-24 lg:py-48 overflow-hidden">
+        <section id="infrastructure" className="px-6 py-24 lg:py-36">
           <div className="mx-auto max-w-7xl">
-            <div className="grid gap-20 lg:grid-cols-2 lg:items-center">
-              <motion.div
-                initial={{ opacity: 0, x: -50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-              >
-                <div className="inline-flex items-center gap-2 rounded-full border border-purple-500/20 bg-purple-500/5 px-4 py-2 mb-8">
-                  <Sparkles size={14} className="text-purple-400" />
-                  <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-purple-300">Core Infrastructure</span>
-                </div>
-                <h2 className="text-5xl lg:text-7xl font-display font-black leading-[0.9] tracking-tighter italic">
-                  Hyper-localized <br />
-                  <span className="text-slate-600">Verification.</span>
-                </h2>
-                <p className="mt-8 text-lg text-slate-400 leading-8 max-w-md">
-                  Our system maintains a real-time ledger of approved masters, active deployment zones, and system integrity benchmarks across the entire grid.
-                </p>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, x: 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="relative"
-              >
-                <div className="relative aspect-[4/5] overflow-hidden rounded-[3rem] border border-white/10 bg-black shadow-2xl">
-                  <div className="absolute inset-0 cyber-grid opacity-20" />
-                  {/* Decorative network graphic pseudo-code */}
-                  <div className="absolute inset-0 flex items-center justify-center p-10">
-                    <div className="relative w-full h-full border border-cyan-500/20 rounded-full animate-spin-slow flex items-center justify-center">
-                       <div className="absolute top-0 h-4 w-4 bg-cyan-400 rounded-full neon-glow-cyan" />
-                       <div className="absolute bottom-1/4 right-0 h-3 w-3 bg-purple-500 rounded-full neon-glow-purple" />
-                       <div className="w-1/2 h-1/2 border border-purple-500/20 rounded-full animate-reverse-spin-slow" />
-                       <Zap size={48} className="text-cyan-400 neon-glow-cyan" />
-                    </div>
-                  </div>
-                  <div className="absolute bottom-8 left-8 right-8 p-6 glass rounded-3xl">
-                    <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-cyan-400 mb-2">System Status</p>
-                    <p className="text-lg font-display font-bold">Network Integrity: Verified</p>
-                  </div>
-                </div>
-              </motion.div>
+            <div className="mb-14 max-w-3xl">
+              <p className="text-[10px] font-bold uppercase tracking-[0.32em] text-purple-300">How It Works</p>
+              <h2 className="mt-5 text-4xl font-display font-black tracking-tight md:text-5xl">A cleaner experience from request to resolution.</h2>
             </div>
-          </div>
-        </section>
 
-        {/* ── Stats ────────────────────────────── */}
-        <section className="px-6 py-24 bg-black border-y border-white/5">
-          <div className="mx-auto max-w-7xl">
-            <div className="grid gap-12 lg:grid-cols-3">
-              {stats.map((stat, i) => (
+            <div className="grid gap-5 md:grid-cols-3">
+              {serviceSteps.map((step, index) => (
                 <motion.div
-                  key={stat.label}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
+                  key={step.title}
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                  className="flex flex-col"
+                  transition={{ delay: index * 0.1 }}
+                  className="relative overflow-hidden rounded-[1.8rem] border border-white/10 bg-black/40 p-6"
                 >
-                  <span className="text-5xl font-display font-black mb-4">{stat.value}</span>
-                  <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-500 mb-8">{stat.label}</span>
-                  <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      whileInView={{ width: `${stat.progress}%` }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 1, delay: 0.5 }}
-                      className={`h-full bg-gradient-to-r ${stat.color}`}
-                    />
+                  <div className="mb-5 flex items-center justify-between">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-cyan-500/25 bg-cyan-500/10 text-cyan-300">
+                      <step.icon size={20} />
+                    </div>
+                    <span className="text-3xl font-display font-black text-white/20">0{index + 1}</span>
                   </div>
+                  <h3 className="text-xl font-display font-bold">{step.title}</h3>
+                  <p className="mt-3 text-sm leading-7 text-slate-300">{step.detail}</p>
                 </motion.div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* ── Platforms / Nodes (Nodes) ────────────────────────── */}
-        <section id="nodes" className="px-6 py-24 lg:py-48">
-          <div className="mx-auto max-w-3xl text-center mb-24">
-             <h2 className="text-5xl font-display font-black tracking-tighter italic uppercase underline decoration-cyan-500 decoration-4 underline-offset-8">The Platform of <br /> <span className="text-cyan-500">Integration</span></h2>
-             <p className="mt-8 text-slate-400 text-lg">One infrastructure, synchronized for three operational perspectives.</p>
+        <section id="nodes" className="border-y border-white/5 bg-black/50 px-6 py-24 lg:py-32">
+          <div className="mx-auto mb-12 max-w-3xl text-center">
+            <h2 className="text-4xl font-display font-black tracking-tight md:text-5xl">One Platform. Three Role-Specific Workflows.</h2>
+            <p className="mt-5 text-lg text-slate-300">Every stakeholder gets the right interface without losing shared visibility.</p>
           </div>
-          
-          <div className="mx-auto max-w-7xl">
+
+          <div className="mx-auto max-w-7xl space-y-4">
+            {platforms.map((node, i) => (
+              <motion.div
+                key={node.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08 }}
+                className="group flex flex-col justify-between rounded-[1.8rem] border border-white/10 bg-white/[0.03] p-7 transition-all hover:border-cyan-500/30 md:flex-row md:items-center"
+              >
+                <div className="flex items-center gap-5">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-cyan-500/10 text-cyan-400 shadow-[inset_0_0_20px_rgba(6,182,212,0.12)]">
+                    <node.icon size={20} />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-display font-bold">{node.title}</h3>
+                    <p className="mt-1 text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">{node.role}</p>
+                  </div>
+                </div>
+                <p className="mt-4 max-w-md text-sm text-slate-300 md:mt-0">{node.text}</p>
+                <button className="mt-4 hidden h-11 w-11 items-center justify-center rounded-full border border-white/15 transition-colors group-hover:border-cyan-400 md:flex md:mt-0">
+                  <ArrowRight size={17} />
+                </button>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
+        <section className="px-6 py-24 lg:py-32">
+          <div className="mx-auto max-w-4xl">
+            <div className="mb-8 text-center">
+              <h2 className="text-4xl font-display font-black tracking-tight md:text-5xl">Frequently Asked Questions</h2>
+              <p className="mt-4 text-slate-300">Quick answers before you book your first service.</p>
+            </div>
+
             <div className="space-y-4">
-              {platforms.map((node, i) => (
-                <motion.div
-                  key={node.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                  className="group flex flex-col md:flex-row md:items-center justify-between p-8 rounded-[2rem] bg-white/[0.03] border border-white/5 hover:bg-white/[0.05] transition-all"
-                >
-                  <div className="flex items-center gap-6">
-                    <div className="h-12 w-12 flex items-center justify-center rounded-xl bg-cyan-500/10 text-cyan-400 shadow-[inset_0_0_20px_rgba(6,182,212,0.1)]">
-                      <node.icon size={20} />
-                    </div>
-                    <div>
-                      <h4 className="text-xl font-bold">{node.title}</h4>
-                      <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 mt-1">{node.role}</p>
-                    </div>
+              {faqs.map((faq, idx) => {
+                const isOpen = openFaq === idx;
+                return (
+                  <div key={faq.q} className="overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03]">
+                    <button
+                      onClick={() => setOpenFaq(isOpen ? -1 : idx)}
+                      className="flex w-full items-center justify-between px-6 py-5 text-left"
+                    >
+                      <span className="text-base font-semibold text-white">{faq.q}</span>
+                      <ChevronDown
+                        className={`transition-transform duration-300 ${isOpen ? 'rotate-180 text-cyan-300' : 'text-slate-400'}`}
+                        size={20}
+                      />
+                    </button>
+                    <motion.div
+                      initial={false}
+                      animate={{ height: isOpen ? 'auto' : 0, opacity: isOpen ? 1 : 0 }}
+                      transition={{ duration: 0.25 }}
+                      className="overflow-hidden"
+                    >
+                      <p className="px-6 pb-6 text-sm leading-7 text-slate-300">{faq.a}</p>
+                    </motion.div>
                   </div>
-                  <p className="mt-4 md:mt-0 md:max-w-md text-sm text-slate-400 group-hover:text-slate-300 transition-colors">
-                    {node.text}
-                  </p>
-                  <button className="hidden md:flex h-12 w-12 items-center justify-center rounded-full border border-white/10 group-hover:border-cyan-500 transition-colors">
-                    <ArrowRight size={18} />
-                  </button>
-                </motion.div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </section>
 
-        {/* ── Footer Link Section (Support) ────────────────────── */}
-        <section id="support" className="px-6 py-24 lg:py-48 text-center bg-gradient-to-b from-transparent to-cyan-500/5">
-          <div className="mx-auto max-w-3xl">
-            <h2 className="text-6xl md:text-8xl font-display font-black tracking-tighter italic mb-10 overflow-visible">
-              Ready to <br /> <span className="inline-block py-6 px-4 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 leading-[1.3]">Override?</span>
-            </h2>
-            <p className="text-slate-400 text-lg mb-14">Get started as a user or initialize your mechanic node today.</p>
-            
-            <div className="flex flex-col sm:flex-row justify-center gap-4">
+        <section id="support" className="bg-gradient-to-b from-transparent to-cyan-500/10 px-6 py-24 text-center lg:py-36">
+          <div className="mx-auto max-w-3xl rounded-[2.3rem] border border-white/10 bg-black/45 p-10 md:p-14">
+            <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-cyan-300">Get Started Today</p>
+            <h2 className="mt-5 text-5xl font-display font-black tracking-tight md:text-6xl">Need help now? We are ready.</h2>
+            <p className="mx-auto mt-6 max-w-xl text-lg text-slate-300">
+              Book roadside support in minutes or sign in as a mechanic and start accepting nearby requests.
+            </p>
+
+            <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
               <Link to="/register">
-                <Button size="lg" variant="cyber" className="h-16 px-12 rounded-2xl font-black uppercase tracking-[0.2em] w-full sm:w-auto">
-                  Get Started
+                <Button size="lg" variant="cyber" className="h-14 w-full rounded-2xl px-11 text-xs font-black uppercase tracking-[0.2em] sm:w-auto">
+                  Create Account
                 </Button>
               </Link>
               <Link to="/login">
-                <Button variant="outline" size="lg" className="h-16 px-12 rounded-2xl border-white/20 bg-white/5 font-black uppercase tracking-[0.2em] w-full sm:w-auto">
-                  Log Input
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="h-14 w-full rounded-2xl border-white/20 bg-white/5 px-11 text-xs font-black uppercase tracking-[0.2em] sm:w-auto"
+                >
+                  Sign In
                 </Button>
               </Link>
             </div>
@@ -358,21 +454,26 @@ export default function LandingPage() {
         </section>
       </main>
 
-      <footer className="border-t border-white/5 py-12 bg-black">
-        <div className="mx-auto max-w-7xl px-6 flex flex-col md:flex-row justify-between items-center gap-8">
-           <div className="flex items-center gap-4 opacity-50">
-              <Zap size={20} className="text-cyan-400" />
-              <span className="text-[10px] font-bold uppercase tracking-[0.4em]">Integrated Infrastructure © 2026</span>
-           </div>
-           <div className="flex gap-8 text-[10px] font-black uppercase tracking-[0.3em] text-slate-500">
-             {['Protocols', 'Term', 'Policy', 'Status'].map(link => (
-               <a key={link} href="#" className="hover:text-white transition-colors">{link}</a>
-             ))}
-           </div>
+      <footer className="border-t border-white/5 bg-black py-10">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-7 px-6 md:flex-row">
+          <div className="flex items-center gap-3 opacity-70">
+            <Zap size={18} className="text-cyan-400" />
+            <span className="text-[10px] font-bold uppercase tracking-[0.35em]">QuickFix Infrastructure © 2026</span>
+          </div>
+          <div className="flex items-center gap-6 text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">
+            <a href="#protocols" className="transition-colors hover:text-white">
+              Protocols
+            </a>
+            <a href="#support" className="transition-colors hover:text-white">
+              Support
+            </a>
+            <a href="#" className="transition-colors hover:text-white">
+              Policy
+            </a>
+          </div>
         </div>
       </footer>
 
-      {/* Tailwind and custom CSS classes like animate-spin-slow, animate-reverse-spin-slow are managed here or in style tag */}
       <style>{`
         @keyframes spin-slow {
           from { transform: rotate(0deg); }
