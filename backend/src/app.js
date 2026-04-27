@@ -1,4 +1,3 @@
-// src/app.js
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
@@ -18,33 +17,33 @@ const { errorHandler, notFound } = require('./middleware/error.middleware');
 
 const app = express();
 
-// ─── Security ────────────────────────────────────────────────────────────────
+// ─── Security ─────────────────────────────
 app.use(helmet());
 app.use(mongoSanitize());
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 200,
-  message: { success: false, message: 'Too many requests, please try again later.' },
+  message: { success: false, message: 'Too many requests, try again later.' },
 });
 app.use('/api/', limiter);
 
-// ─── CORS ─────────────────────────────────────────────────────────────────────
+// ─── CORS ─────────────────────────────
 app.use(cors({
   origin: process.env.CLIENT_URL || 'http://localhost:3000',
   credentials: true,
 }));
 
-// ─── Body Parsing ─────────────────────────────────────────────────────────────
+// ─── Body Parsing ─────────────────────
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true }));
 
-// ─── Logging ──────────────────────────────────────────────────────────────────
+// ─── Logging ──────────────────────────
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
-// ─── Routes ───────────────────────────────────────────────────────────────────
+// ─── API Routes ───────────────────────
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/mechanics', mechanicRoutes);
@@ -53,17 +52,18 @@ app.use('/api/chat', chatRoutes);
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/admin', adminRoutes);
 
-app.get('/api/health', (req, res) => res.json({ status: 'ok', timestamp: new Date() }));
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok', timestamp: new Date() });
+});
 
-// ─── Production Deployment ──────────────────────────────────────────────────
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../../frontend/dist')));
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../../frontend', 'dist', 'index.html'));
-  });
-}
+// ─── SERVE FRONTEND (🔥 ALWAYS ENABLED) ───
+app.use(express.static(path.join(__dirname, '../../frontend/dist')));
 
-// ─── Error Handling ───────────────────────────────────────────────────────────
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../../frontend/dist/index.html'));
+});
+
+// ─── Error Handling ────────────────────
 app.use(notFound);
 app.use(errorHandler);
 
