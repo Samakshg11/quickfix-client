@@ -1,5 +1,6 @@
 // src/app.js
 const express = require('express');
+const path = require('path');
 const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
@@ -53,6 +54,14 @@ app.use('/api/notifications', notificationRoutes);
 app.use('/api/admin', adminRoutes);
 
 app.get('/api/health', (req, res) => res.json({ status: 'ok', timestamp: new Date() }));
+
+// ─── Production Deployment ──────────────────────────────────────────────────
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../../frontend/dist')));
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../../frontend', 'dist', 'index.html'));
+  });
+}
 
 // ─── Error Handling ───────────────────────────────────────────────────────────
 app.use(notFound);
