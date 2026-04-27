@@ -2,12 +2,7 @@
   "name": "quickfix-monorepo",
   "version": "1.0.0",
   "scripts": {
-    "install-all": "npm install --prefix backend && npm install --prefix frontend",
     "build": "cd frontend && npm install && npm run build",
-    "start": "cd backend && npm start",
-    "dev": "concurrently \"npm run dev --prefix backend\" \"npm run dev --prefix frontend\""
-  },
-  "devDependencies": {
-    "concurrently": "^8.2.2"
+    "start": "cd backend && npm start"
   }
 }
