@@ -1,11 +1,18 @@
-// src/server.js
 require('dotenv').config();
 const http = require('http');
-const app = require('./app');
+const app = require('./app'); // ✅ yahi use hoga
 const connectDB = require('./config/db');
 const { connectRedis } = require('./config/redis');
 const logger = require('./config/logger');
 const { initSocket } = require('./socket');
+const path = require("path");
+const express = require("express");
+
+app.use(express.static(path.join(__dirname, "../../frontend/dist")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));
+});
 
 const PORT = process.env.PORT || 5001;
 
