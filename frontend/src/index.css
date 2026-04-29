@@ -37,6 +37,22 @@
   h6 {
     @apply font-display tracking-tight text-white;
   }
+
+  /* Leaflet Map Fixes for Tailwind */
+  .leaflet-container {
+    z-index: 10 !important;
+  }
+  .leaflet-pane {
+    z-index: 10 !important;
+  }
+  .leaflet-top,
+  .leaflet-bottom {
+    z-index: 20 !important;
+  }
+  .leaflet-container img {
+    max-width: none !important;
+    max-height: none !important;
+  }
 }
 
 @layer components {

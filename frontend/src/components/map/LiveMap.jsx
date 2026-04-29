@@ -3,6 +3,8 @@ import React from "react";
 import { useEffect, useRef } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap, ZoomControl } from 'react-leaflet';
 import L from 'leaflet';
+window.L = L;
+import 'leaflet-routing-machine';
 import 'leaflet/dist/leaflet.css';
 
 /** ── Industry Standard Cyber-Markers ──────────────────── */
